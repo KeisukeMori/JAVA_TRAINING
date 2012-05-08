@@ -1,0 +1,2 @@
+AttributedインタフェースはAttrクラスに対する操作を定義しているため、
+AttrクラスがAttributedクラスのネストした型であるべき。

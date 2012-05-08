@@ -30,7 +30,6 @@ public class LinkedList {
 			String infoVihicle;
 			Vehicle tmpVehicle = (Vehicle) object;
 			infoVihicle = tmpVehicle.toString();
-
 			if(next != null)
 				infoVihicle += next.toString();
 			return infoVihicle;
@@ -75,13 +74,14 @@ public class LinkedList {
 		train.setDirection(Math.PI * 2);
 
 		Vehicle airplane = new Vehicle("Nick");
-		train.setVelocity(8.0);
-		train.setDirection(Math.PI);
+		airplane.setVelocity(8.0);
+		airplane.setDirection(Math.PI);
 
 		LinkedList item3 = new LinkedList(airplane, null);
 		LinkedList item2 = new LinkedList(train, item3);
 		LinkedList item1 = new LinkedList(car, item2);
 
+		item1.show();
 		System.out.println(item1.countNodeList());
 		System.out.println(item3.countNodeList());
 		System.out.println(item2.countNodeList());

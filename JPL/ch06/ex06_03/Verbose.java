@@ -1,4 +1,4 @@
-package ch05.ex06_03;
+package ch06.ex06_03;
 
 	public enum Verbose {
 	SILENT(0),

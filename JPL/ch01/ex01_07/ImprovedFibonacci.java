@@ -1,8 +1,7 @@
 package ch01.ex01_07;
 
 public class ImprovedFibonacci {
-    static final int MAX_INDEX = 9;
-    
+    static final int MAX_INDEX = 9;  
     public static void main(String[] args) {
         int lo = 1;
         int hi = 1;

@@ -4,8 +4,7 @@ import java.awt.event.*;
 import java.awt.*;
 import java.util.Calendar;
 
-public class DigitalWatch extends Frame implements Runnable, ActionListener
-{
+public class DigitalWatch extends Frame implements Runnable, ActionListener, MouseListener {
 	private static final long serialVersionUID = 1L;
 	private int hour;           //時を入れる変数を宣言
 	private int minute;           //分を入れる変数を宣言
@@ -17,8 +16,10 @@ public class DigitalWatch extends Frame implements Runnable, ActionListener
 	private MenuItem menuProperty;
 	private Image imageBuffer;
 	private Graphics graphicBuffer;
+	private PopupMenu popUp;
 
-	private String fontType = "TimesRoman";
+
+	private String fontType = "DIALOG";
 	private int fontSize = 48;
 	private Color fontColor = Color.BLACK;
 	private Color backgroundColor = Color.white;
@@ -27,20 +28,16 @@ public class DigitalWatch extends Frame implements Runnable, ActionListener
 	private int windowY = 200;
 
 	private String timeString;
-
-
 	private MenuBar menuBar;
 
 	// フォントのデフォルトの設定
 	private Font fontSetting = new Font("TimesRoman", Font.PLAIN, 48);
 
-	public DigitalWatch(String title)
-	{
+	public DigitalWatch(String title) {
 		//タイトル
 		super(title);
 
 		addWindowListener(new CurrentWindowAdapter());
-
 		// メニューバーを作成する
 		menuBar = new MenuBar();
 		setMenuBar(menuBar);        
@@ -56,6 +53,13 @@ public class DigitalWatch extends Frame implements Runnable, ActionListener
 		if (dialog == null) {
 			dialog = new PropertyDialog(this);
 		}
+        /* ポップアップメニューを作成する */
+        popUp = new PopupMenu();
+        popUp.add("次回をこうご期待ください");
+        add(popUp);
+		
+		addMouseListener(this);
+
 	}
 
 	public String getTime() {
@@ -74,8 +78,7 @@ public class DigitalWatch extends Frame implements Runnable, ActionListener
 		}
 	}
 
-	public void paint(Graphics g)
-	{
+	public void paint(Graphics g) {
 		timeString = getTime();
 		
 		// ウィンドウサイズの計算
@@ -97,14 +100,14 @@ public class DigitalWatch extends Frame implements Runnable, ActionListener
 		g.drawImage(imageBuffer, 0, 0,  this);
 	}
 
-	public int calXSize(){
+	public int calXSize() {
 		int x  = graphicBuffer.getFontMetrics().stringWidth(timeString);
 		x += getInsets().left;
 		x += getInsets().right;
 		return x;
 	}
 	
-	public int calYSize(){
+	public int calYSize() {
 		int y  = graphicBuffer.getFontMetrics().getAscent();
 		y += graphicBuffer.getFontMetrics().getDescent();
 		y += getInsets().top;
@@ -112,39 +115,31 @@ public class DigitalWatch extends Frame implements Runnable, ActionListener
 	}
 	
 	@Override
-	public void update(Graphics g)
-	{
+	public void update(Graphics g) {
 		paint(g);
 	}
 
 	@Override
-	public void run()
-	{
-		while(true)
-		{
+	public void run() {
+		while(true) {
 			getTime();
 
 			// 再描画
 			repaint();
 
-			try
-			{
+			try {
 				th.sleep(1000); // スリープ1秒
-			}
-			catch(InterruptedException e)
-			{
-				; // 何もしない
+			} catch(InterruptedException e) {
+				;
 			}
 		}
-
 	}
 
 	/**
 	 * フォントタイプ取得
 	 * @return フォントタイプ
 	 */
-	public String getFontType()
-	{
+	public String getFontType() {
 		return fontType;
 	}
 
@@ -153,8 +148,7 @@ public class DigitalWatch extends Frame implements Runnable, ActionListener
 	 * フォントタイプのセット
 	 * @param fontType フォントタイプ
 	 */
-	public void setFontType(String fontType)
-	{
+	public void setFontType(String fontType) {
 		this.fontType = fontType;
 	}
 
@@ -162,8 +156,7 @@ public class DigitalWatch extends Frame implements Runnable, ActionListener
 	 * フォントサイズの取得
 	 * @return フォントサイズ
 	 */
-	public Integer getFontSize()
-	{
+	public Integer getFontSize() {
 		return fontSize;
 	}
 
@@ -171,8 +164,7 @@ public class DigitalWatch extends Frame implements Runnable, ActionListener
 	 * フォントサイズのセット
 	 * @param fontSize フォントサイズ
 	 */
-	public void setFontSize(int fontSize)
-	{
+	public void setFontSize(int fontSize) {
 		this.fontSize = fontSize;
 	}
 
@@ -180,8 +172,7 @@ public class DigitalWatch extends Frame implements Runnable, ActionListener
 	 * フォントカラーの取得
 	 * @return フォントカラー
 	 */
-	public Color getFontColor()
-	{
+	public Color getFontColor() {
 		return fontColor;
 	}
 
@@ -189,8 +180,7 @@ public class DigitalWatch extends Frame implements Runnable, ActionListener
 	 * フォントカラーのセット
 	 * @param fontColor フォントカラー
 	 */
-	public void setFontColor(Color fontColor)
-	{
+	public void setFontColor(Color fontColor) {
 		this.fontColor = fontColor;
 	}
 
@@ -198,8 +188,7 @@ public class DigitalWatch extends Frame implements Runnable, ActionListener
 	 * 背景色を取得します。
 	 * @return 背景色
 	 */
-	public Color getBackgroundColor()
-	{
+	public Color getBackgroundColor() {
 		return backgroundColor;
 	}
 
@@ -207,8 +196,7 @@ public class DigitalWatch extends Frame implements Runnable, ActionListener
 	 * 背景色をセットします
 	 * @param backgroundColor 背景色
 	 */
-	public void setBackgroundColor(Color backgroundColor)
-	{
+	public void setBackgroundColor(Color backgroundColor) {
 		this.backgroundColor = backgroundColor;
 	}
 
@@ -216,8 +204,7 @@ public class DigitalWatch extends Frame implements Runnable, ActionListener
 	/**
 	 * @param args
 	 */
-	 public static void main(String[] args)
-	{
+	 public static void main(String[] args) {
 		 DigitalWatch window = new DigitalWatch("デジタル時計");
 		 window.setSize(400, 200);
 		 window.setResizable(false);
@@ -236,17 +223,45 @@ public class DigitalWatch extends Frame implements Runnable, ActionListener
 
 	 @Override
 	 public void actionPerformed(ActionEvent e) {
-		 if (e.getActionCommand() == "プロパティ")
-		 {
+		 if (e.getActionCommand() == "プロパティ") {
 			 dialog.setVisible(true);
 		 } 
 		 // if else 
-
 	 }
-
+	 
+	
 	public class CurrentWindowAdapter extends WindowAdapter {
 			public void windowClosing(WindowEvent e) {   //×を押されたときの処理
 				System.exit(0);
 			}
 	 }
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		popUp.show(this, 100, 100);
+		repaint();
+	}
+	
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO 自動生成されたメソッド・スタブ
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO 自動生成されたメソッド・スタブ
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO 自動生成されたメソッド・スタブ
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO 自動生成されたメソッド・スタブ
+		
+	}
 }

@@ -1,10 +1,14 @@
-package ch03.ex03_07;
+package ch12.ex12_01;
 
 public class ScreenColor {
 	private Object value;
 	
 	public ScreenColor(Object value) {
 		this.setValue(value);
+	}
+	
+	public Boolean equals(ScreenColor color) {
+		return (value.equals(color.getValue()));
 	}
 
 	public Object getValue() {
@@ -15,10 +19,6 @@ public class ScreenColor {
 		this.value = value;
 	}
 	
-	public Boolean equals(ScreenColor color) {
-		return (value.equals(color.getValue()));
-	}
-
 	public int hashCode() {
 		return value.hashCode();
 	}

@@ -20,7 +20,7 @@ public class DigitalWatch extends Frame {
 		setSize(300, 80);
 		setResizable(false);
 		setVisible(true);
-		setFont(new Font(Font.DIALOG, Font.PLAIN, 30));
+		setFont(new Font(Font.MONOSPACED, Font.PLAIN, 30));
 
 		th = new Thread();
 

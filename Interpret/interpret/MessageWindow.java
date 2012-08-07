@@ -61,7 +61,7 @@ class MessageWindow extends JFrame implements ActionListener {
 		addComponent(outScrollPane, 0, 1, 5, 7);
 		addComponent(errClearButton, 6, 0, 1, 1);
 		addComponent(errScrollPane, 6, 1, 5, 7);
-		addComponent(allClearButton, 12, 0, 1, 1);
+//		addComponent(allClearButton, 12, 0, 1, 1);
 		System.out.println("message");
 
 		outputClearButton.addActionListener(this);

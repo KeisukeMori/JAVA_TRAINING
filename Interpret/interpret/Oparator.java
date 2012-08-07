@@ -187,6 +187,30 @@ public class Oparator {
 		return list;
 	}
 	
+	public static Object setField(Object obj, Field fld, String value) throws IllegalArgumentException, IllegalAccessException {
+		fld.setAccessible(true);
+		if(fld.getType().equals(boolean.class)) {
+			fld.setBoolean(obj, Boolean.parseBoolean(value));
+		} else if (fld.getType().equals(byte.class)) {
+			fld.setByte(obj, Byte.parseByte(value));
+		} else if (fld.getType().equals(char.class)) {
+			fld.setChar(obj, value.charAt(0));
+		} else if (fld.getType().equals(short.class)) {
+			fld.setShort(obj, Short.parseShort(value));
+		} else if (fld.getType().equals(int.class)) {
+			fld.setInt(obj, Integer.parseInt(value));
+		} else if (fld.getType().equals(long.class)) {
+			fld.setLong(obj, Long.parseLong(value));
+		} else if (fld.getType().equals(float.class)) {
+			fld.setFloat(obj, Float.parseFloat(value));
+		} else if (fld.getType().equals(double.class)) {
+			fld.setDouble(obj, Double.parseDouble(value));
+		} else {
+			fld.set(obj, value);
+		}
+
+		return obj;
+	}
 }
 
 

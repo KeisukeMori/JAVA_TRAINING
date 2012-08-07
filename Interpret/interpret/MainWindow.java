@@ -108,7 +108,7 @@ public class MainWindow extends JFrame implements ActionListener {
 
 		addComponent(fieldBtn, 24, 1, 1, 1);
 		addComponent(setFieldBtn, 25, 1, 1, 1);
-		addComponent(fieldtable, 24, 3, 5, 8);
+		addComponent(fieldScroll, 24, 2, 5, 8);
 
 		new MessageWindow();
 
@@ -134,7 +134,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		searchLabel.setFont(commonFont);
 		searchText = new JTextField();
 		searchText.setText("java.lang.String");
-		searchText.setPreferredSize(new Dimension(150, 20));
+		searchText.setPreferredSize(new Dimension(140, 20));
 		searchButton = new JButton("search");
 
 		// コンストラクタ一覧表示用
@@ -184,14 +184,14 @@ public class MainWindow extends JFrame implements ActionListener {
 
 		runMethodText = new JTextField();
 		runMethodText.setText("1,1");
-		runMethodText.setPreferredSize(new Dimension(150, 20));
+		runMethodText.setPreferredSize(new Dimension(140, 20));
 
 		//フィールド表示
 		fieldBtn = new JButton("field");
 		fieldtable = new JTable(20, 2);
 		fieldScroll = new JScrollPane();
 		fieldScroll.getViewport().setView(fieldtable);
-		fieldScroll.setPreferredSize(new Dimension(180, 300));
+		fieldScroll.setPreferredSize(new Dimension(200, 200));
 		setFieldBtn = new JButton("set fields");
 	}
 

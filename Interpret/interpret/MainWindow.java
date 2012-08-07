@@ -17,7 +17,7 @@ public class MainWindow extends JFrame implements ActionListener {
 	private JTextField searchText;
 	private JButton searchButton;
 	// コンストラクタ用
-	private JLabel constLabel;    
+
 	private JButton constClearButton;  
 	private JList constList;      
 	private DefaultListModel constructors;
@@ -81,7 +81,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		addComponent(searchText, 0, 2, 4, 1);
 		addComponent(searchButton, 4, 2, 1, 1);
 
-		addComponent(constLabel, 0, 3, 3, 1);
+	
 		addComponent(constClearButton, 4, 3, 1, 1);
 		addComponent(constScroll, 0, 4, 5, 8);
 		addComponent(selectConstBtn, 4, 12, 1, 1);
@@ -138,8 +138,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		searchButton = new JButton("search");
 
 		// コンストラクタ一覧表示用
-		constLabel = new JLabel("constructors");
-		constLabel.setFont(commonFont);
+
 		constClearButton = new JButton("clear");
 		constructors = new DefaultListModel();
 		constList = new JList(constructors);

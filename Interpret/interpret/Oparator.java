@@ -109,23 +109,23 @@ public class Oparator {
 			return false;
 		}
 		System.out.println("objName" + objName );  
-		Object obj;
-		try {
-			obj = con.newInstance();
-			objectModel.saveObject(objName, obj);
-		} catch (IllegalArgumentException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}
+//		Object obj;
+//		try {
+//			obj = con.newInstance();
+//			objectModel.saveObject(objName, obj);
+//		} catch (IllegalArgumentException e) {
+//			// TODO 自動生成された catch ブロック
+//			e.printStackTrace();
+//		} catch (InstantiationException e) {
+//			// TODO 自動生成された catch ブロック
+//			e.printStackTrace();
+//		} catch (IllegalAccessException e) {
+//			// TODO 自動生成された catch ブロック
+//			e.printStackTrace();
+//		} catch (InvocationTargetException e) {
+//			// TODO 自動生成された catch ブロック
+//			e.printStackTrace();
+//		}
 		return true;
 	}
 

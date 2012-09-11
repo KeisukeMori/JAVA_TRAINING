@@ -15,7 +15,7 @@ public class VehicleTest {
 		String[] args = {"test"}; 
 		Vehicle.main(args);
 				
-		assertNull(Vehicle.main(args));
+		//assertNull(Vehicle.main(args));
 
 
 

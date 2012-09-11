@@ -10,13 +10,13 @@ import javax.swing.border.*;
 
 public class MainWindow extends JFrame implements ActionListener {
 	private static final long serialVersionUID = -1836727108622520391L;
-	private ObjectModel objectModel;
+	private ObjectType objectType;
 
-	// ƒNƒ‰ƒXŒŸõ—p
+	// ã‚¯ãƒ©ã‚¹æ¤œç´¢ç”¨
 	private JLabel searchLabel;
 	private JTextField searchText;
 	private JButton searchButton;
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^—p
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ç”¨
 
 	private JButton constClearButton;  
 	private JList constList;      
@@ -24,32 +24,32 @@ public class MainWindow extends JFrame implements ActionListener {
 	private JScrollPane constScroll; 
 	private JButton selectConstBtn; 
 
-	// ƒIƒuƒWƒFƒNƒgˆê———p
+	// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆä¸€è¦§ç”¨
 	private JLabel objectLabel;
 	private JButton objectClearBtn;
 	private JList  objectList; 
 	private DefaultListModel objects;
 	private JScrollPane objectScroll;
-	// ƒƒ\ƒbƒhŒÄ‚Ño‚µ—p
+	// ãƒ¡ã‚½ãƒƒãƒ‰å‘¼ã³å‡ºã—ç”¨
 	private JButton methodBtn; 
 	private JList methodList;      
 	private DefaultListModel methods;
 	private JScrollPane methodScroll; 
 	private JButton runMethodBtn;
 	private JTextField runMethodText;
-	// ƒtƒB[ƒ‹ƒhŒÄ‚Ño‚µ—p
+	// ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰å‘¼ã³å‡ºã—ç”¨
 	private JButton fieldBtn;
 	private JTable fieldtable;
 	private JScrollPane fieldScroll; 
 	private JButton setFieldBtn;
-	// ƒpƒ‰ƒ[ƒ^—p
+	// ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ç”¨
 	private JLabel paramLabel;          
 	private JLabel objectNameLabel;     
 	private JTextField objectNameText;  
 	private JLabel paramConstLabel; 
 	private JTextField paramTextFiled;  
 
-	// ƒIƒuƒWƒFƒNƒg¶¬ƒ{ƒ^ƒ“
+	// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆç”Ÿæˆãƒœã‚¿ãƒ³
 	private JButton createObjectBtn; 
 	private GridBagLayout layout;
 	private GridBagConstraints constraints;
@@ -65,15 +65,15 @@ public class MainWindow extends JFrame implements ActionListener {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		objectModel = new ObjectModel();
-		// ƒŒƒCƒAƒEƒg‚Ìİ’è
+		objectType = new ObjectType();
+		// ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆã®è¨­å®š
 		layout = new GridBagLayout();
 		setLayout(layout);
 		constraints = new GridBagConstraints();
 
 		createComponent();
 
-		// ‹¤’Êİ’è 
+		// å…±é€šè¨­å®š 
 		constraints.insets = new Insets(1, 1, 1, 1);
 		constraints.gridwidth = GridBagConstraints.REMAINDER;
 
@@ -84,31 +84,37 @@ public class MainWindow extends JFrame implements ActionListener {
 	
 		addComponent(constClearButton, 4, 3, 1, 1);
 		addComponent(constScroll, 0, 4, 5, 8);
-		addComponent(selectConstBtn, 4, 12, 1, 1);
+		addComponent(selectConstBtn, 3, 3, 1, 1);
 
 
 		addComponent(objectLabel, 7, 1, 1, 1);
 
-		addComponent(methodBtn, 18, 1, 1, 1);
-		addComponent(runMethodBtn, 19, 1, 1, 1);
-		addComponent(methodScroll, 18, 2, 5, 8);
-		addComponent(runMethodText, 18, 11, 5, 1);
+		addComponent(methodBtn, 18, 2, 1, 1);
+		addComponent(runMethodBtn, 19, 2, 1, 1);
+		addComponent(methodScroll, 18, 3, 5, 8);
+		addComponent(runMethodText, 18, 11, 4, 2);
 
-		addComponent(objectClearBtn, 10, 1, 1, 1);
+//		addComponent(objectClearBtn, 10, 1, 1, 1);
 
-		addComponent(objectScroll, 7, 2, 4, 3);
+		addComponent(objectScroll, 7, 3, 4, 2);
 
-		addComponent(paramLabel, 7, 6, 2, 1);
-		addComponent(objectNameLabel, 7, 7, 2, 1);
-		addComponent(objectNameText, 7, 8, 4, 1);
-		addComponent(paramConstLabel, 7, 9, 2, 1);
-		addComponent(paramTextFiled, 7, 10, 4, 1);
+//		addComponent(paramLabel, 7, 10, 4, 1);
+		addComponent(objectNameLabel, 7, 10, 2, 1);
+		addComponent(objectNameText, 7, 11, 4, 1);
+		addComponent(paramConstLabel, 7, 8, 2, 1);
+		addComponent(paramTextFiled, 7, 9, 4, 1);
+		
+//		addComponent(paramLabel, 7, 6, 2, 1);
+//		addComponent(objectNameLabel, 7, 7, 2, 1);
+//		addComponent(objectNameText, 7, 8, 4, 1);
+//		addComponent(paramConstLabel, 7, 9, 2, 1);
+//		addComponent(paramTextFiled, 7, 10, 4, 1);
 
-		addComponent(createObjectBtn, 9, 12, 1, 1);
+		addComponent(createObjectBtn, 7, 12, 1, 1);
 
-		addComponent(fieldBtn, 24, 1, 1, 1);
-		addComponent(setFieldBtn, 25, 1, 1, 1);
-		addComponent(fieldScroll, 24, 2, 5, 8);
+		addComponent(fieldBtn, 24, 2, 1, 1);
+		addComponent(setFieldBtn, 25, 2, 1, 1);
+		addComponent(fieldScroll, 24, 3, 5, 8);
 
 		new MessageWindow();
 
@@ -127,17 +133,17 @@ public class MainWindow extends JFrame implements ActionListener {
 
 	private void createComponent() {
 
-		// ƒIƒuƒWƒFƒNƒg¶¬—p 
+		// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆç”Ÿæˆç”¨ 
 		createObjectBtn = new JButton("create");
-		// ƒNƒ‰ƒXŒŸõ—p
+		// ã‚¯ãƒ©ã‚¹æ¤œç´¢ç”¨
 		searchLabel = new JLabel("class");
 		searchLabel.setFont(commonFont);
 		searchText = new JTextField();
 		searchText.setText("java.lang.String");
 		searchText.setPreferredSize(new Dimension(140, 20));
-		searchButton = new JButton("search");
+		searchButton = new JButton("Search");
 
-		// ƒRƒ“ƒXƒgƒ‰ƒNƒ^ˆê——•\¦—p
+		// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ä¸€è¦§è¡¨ç¤ºç”¨
 
 		constClearButton = new JButton("clear");
 		constructors = new DefaultListModel();
@@ -148,7 +154,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		constScroll.setPreferredSize(new Dimension(200, 200));
 		selectConstBtn = new JButton("select");
 
-		// ƒIƒuƒWƒFƒNƒgˆê——•\¦—p 
+		// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆä¸€è¦§è¡¨ç¤ºç”¨ 
 		objectLabel = new JLabel("objects");
 		objectLabel.setFont(commonFont);
 		objectClearBtn = new JButton("clear");
@@ -157,9 +163,9 @@ public class MainWindow extends JFrame implements ActionListener {
 		objectList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		objectScroll = new JScrollPane();
 		objectScroll.getViewport().setView(objectList);
-		objectScroll.setPreferredSize(new Dimension(200, 40));
+		objectScroll.setPreferredSize(new Dimension(200, 20));
 
-		// ƒpƒ‰ƒ[ƒ^•\¦—p
+		// ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿è¡¨ç¤ºç”¨
 		paramLabel = new JLabel("parameter");
 		paramLabel.setFont(commonFont);
 		objectNameLabel = new JLabel("object name");
@@ -171,7 +177,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		paramTextFiled = new JTextField();
 		paramTextFiled.setPreferredSize(new Dimension(200, 40));
 
-		// ƒƒ\ƒbƒh•\¦—p
+		// ãƒ¡ã‚½ãƒƒãƒ‰è¡¨ç¤ºç”¨
 		methodBtn = new JButton("methods");
 		methods = new DefaultListModel();
 		methodList = new JList(methods);
@@ -186,7 +192,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		runMethodText.setText("1,1");
 		runMethodText.setPreferredSize(new Dimension(140, 20));
 
-		//ƒtƒB[ƒ‹ƒh•\¦
+		//ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰è¡¨ç¤º
 		fieldBtn = new JButton("field");
 		fieldtable = new JTable(20, 2);
 		fieldScroll = new JScrollPane();
@@ -207,41 +213,55 @@ public class MainWindow extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
-		// ŒŸõƒ{ƒ^ƒ“
+		// æ¤œç´¢ãƒœã‚¿ãƒ³
 		if (source == searchButton) { 
 			classOperator.searchButton(searchText.getText());
 
-			// ƒRƒ“ƒXƒgƒ‰ƒNƒ^ƒNƒŠƒAƒ{ƒ^ƒ“	
+			// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã‚¯ãƒªã‚¢ãƒœã‚¿ãƒ³	
 		} else if (source == constClearButton) {
 			constructors.clear();
 			constList.ensureIndexIsVisible(constructors.getSize() - 1);
 			classOperator.constClearButton();
-			// ƒRƒ“ƒXƒgƒ‰ƒNƒ^‘I‘ğƒ{ƒ^ƒ“	
+			// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿é¸æŠãƒœã‚¿ãƒ³	
 		} else if (source == selectConstBtn) {
 			if (constList.isSelectionEmpty()) {
-				System.out.println("ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚ğ‘I‘ğ‚µ‚Ä‚­‚¾‚³‚¢");
+				System.out.println("ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã‚’é¸æŠã—ã¦ãã ã•ã„");
 			} else {
 				System.out.println(constList.getSelectedValue());
 				classOperator.selectButton((String)constList.getSelectedValue());
 			}
-			// ƒIƒuƒWƒFƒNƒgƒNƒŠƒAƒ{ƒ^ƒ“	
+			// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚¯ãƒªã‚¢ãƒœã‚¿ãƒ³	
 		} else if (source == objectClearBtn) {
 			objects.clear();
 			objectList.ensureIndexIsVisible(objects.getSize() - 1);
 			classOperator.objectClearButton();
-			// ƒƒ\ƒbƒhƒ{ƒ^ƒ“	
+			// ãƒ¡ã‚½ãƒƒãƒ‰ãƒœã‚¿ãƒ³	
 		} else if (source == methodBtn) {
-			// –¢Š®¬
-			Object obj = ObjectModel.getObject(objectNameText.getText());
+			// æœªå®Œæˆ
+			Object obj = ObjectType.getObject(objectNameText.getText());
 			System.out.println("obj" + obj );
 			Oparator.getMethods(obj);
 
 		} else if (source == runMethodBtn) {
-			Object obj = ObjectModel.getObject(objectNameText.getText());
+			Object obj = ObjectType.getObject(objectNameText.getText());
 			System.out.println("obj" + obj );
 			System.out.println("getSelectedIndex" + methodList.getSelectedIndex() );
 			obj.getClass().getMethods();
-			Method method = methodListNum.get(methodList.getSelectedIndex());
+//			Method method = methodListNum.get(methodList.getSelectedIndex());
+			String methodName = (String)methodList.getSelectedValue();
+			System.out.println("methodName " + methodName );
+			Method[] methodValue = classOperator.getMethod();
+
+			System.out.println("methodValue length " + methodValue.length );
+
+			Method method = null;
+			for (int i = 0; i < methodValue.length; i++) {
+				if(methodValue[i].getName().equals(methodName)){
+					method = methodValue[i];
+					System.out.println("exec method " + method.getName());
+				}
+			}
+		//	Method method = (Method)methodListNum.get(methodList.getSelectedIndex());
 			String text = runMethodText.getText();
 			String[] textParams = text.split(",");
 
@@ -287,9 +307,9 @@ public class MainWindow extends JFrame implements ActionListener {
 			} catch (InvocationTargetException e1) {
 				e1.printStackTrace();
 			}
-			// ƒtƒB[ƒ‹ƒhŒÄ‚Ño‚µƒ{ƒ^ƒ“
+			// ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰å‘¼ã³å‡ºã—ãƒœã‚¿ãƒ³
 		} else if (source == fieldBtn) {
-			Object obj = ObjectModel.getObject(objectNameText.getText());
+			Object obj = ObjectType.getObject(objectNameText.getText());
 			List firldLists = classOperator.getFields(obj);
 			List valueLists = classOperator.getValues(obj);
 			for (int i = 0; i < firldLists.size(); i++) {
@@ -300,13 +320,13 @@ public class MainWindow extends JFrame implements ActionListener {
 			
 			
 			
-			// ƒIƒuƒWƒFƒNƒg¶¬ƒ{ƒ^ƒ“
+			// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆç”Ÿæˆãƒœã‚¿ãƒ³
 		} else if (source == createObjectBtn) { 
 			if (classOperator.createButton()) {
 				String objName = objectNameText.getText();
 				objects.addElement(objName);
 				objectList.ensureIndexIsVisible(objects.getSize() - 1);
-				System.out.println("ƒIƒuƒWƒFƒNƒg  "  + objName +  "¶¬");
+				System.out.println("ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ  "  + objName +  "ç”Ÿæˆ");
 			}
 		}
 	}

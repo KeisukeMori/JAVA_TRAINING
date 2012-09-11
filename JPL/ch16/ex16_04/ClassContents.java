@@ -5,7 +5,8 @@ import java.lang.annotation.*;
 class ClassContents {
   public static void main(String[] args) {
     try {
-      Class<?> c = Class.forName(args[0]);
+      String className = "java.io.File";
+      Class<?> c = Class.forName(className);
       System.out.println(c);
       printAnnotations(c.getAnnotations());
     } catch (ClassNotFoundException e) {

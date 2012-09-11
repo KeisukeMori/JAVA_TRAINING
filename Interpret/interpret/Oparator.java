@@ -8,13 +8,14 @@ import java.util.List;
 
 public class Oparator {
 	private MainWindow mainWindow;
-	private ConstructorModel constModel;
-	private ObjectModel objectModel;
+	private ConstructorType constType;
+	private ObjectType objectType;
+	public static Method[] method;
 
 	public Oparator(MainWindow mainFrame) {
 		this.mainWindow = mainFrame;
-		constModel = new ConstructorModel();
-		objectModel = new ObjectModel();
+		constType = new ConstructorType();
+		objectType = new ObjectType();
 	}
 
 	public void searchButton(String text) {
@@ -32,7 +33,7 @@ public class Oparator {
 			System.out.println(cls.getName());
 			Constructor<?>[] cons = cls.getConstructors();
 			Method[] methods = cls.getMethods();
-			constModel.saveConstructors(cons);
+			constType.saveConstructors(cons);
 			mainWindow.printConstructorList(cons);
 			mainWindow.printMethodList(methods);
 		} else {
@@ -41,7 +42,7 @@ public class Oparator {
 	}
 
 	public void selectButton(String constName) {
-		Constructor<?> con = constModel.getConstructor(constName);
+		Constructor<?> con = constType.getConstructor(constName);
 		if (con == null) return;
 
 	}
@@ -51,25 +52,25 @@ public class Oparator {
 		String constName = mainWindow.getConstName();
 		String params = mainWindow.getParamName();
 		if (isEmptyString(objName)) {
-			System.out.println("ƒIƒuƒWƒFƒNƒg–¼‚È‚µ");
+			System.out.println("ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆåãªã—");
 			return false;
 		}
 
-		Constructor<?> con = constModel.getConstructor(constName);
+		Constructor<?> con = constType.getConstructor(constName);
 
 		if (!createObject(objName, con, params)) {
-			return false; // ƒIƒuƒWƒFƒNƒg‚Ì¶¬¸”s
+			return false; // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆå¤±æ•—
 		}
 
 		return true;
 	}
 
 	public void objectClearButton() {
-		objectModel.clearObjects();
+		objectType.clearObjects();
 	}
 
 	public void constClearButton() {
-		constModel.clearConstructors();
+		constType.clearConstructors();
 	}
 
 	private boolean isEmptyString(String str) {
@@ -84,12 +85,12 @@ public class Oparator {
 	private boolean createObject(String objName, Constructor<?> con, String paramStr) {
 		Type[] types = con.getGenericParameterTypes();
 		System.out.println("types" + types.length );  
-		/* ƒfƒtƒHƒ‹ƒgƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Ìê‡ */
+		/* ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã®å ´åˆ */
 		if (types.length == 0) {
 			try {
 				System.out.println("objName" + objName );  
 				Object obj = con.newInstance();
-				objectModel.saveObject(objName, obj);
+				objectType.saveObject(objName, obj);
 				return true;
 			} catch (IllegalAccessException e) {
 				e.printStackTrace();
@@ -105,25 +106,25 @@ public class Oparator {
 
 		String[] params = csvParse(paramStr);
 		if (types.length != params.length) {
-			System.out.println("ˆø”‚Ì”‚ªˆê’v‚µ‚Ü‚¹‚ñ");
+			System.out.println("å¼•æ•°ã®æ•°ãŒä¸€è‡´ã—ã¾ã›ã‚“");
 			return false;
 		}
 		System.out.println("objName" + objName );  
 //		Object obj;
 //		try {
 //			obj = con.newInstance();
-//			objectModel.saveObject(objName, obj);
+//			objectType.saveObject(objName, obj);
 //		} catch (IllegalArgumentException e) {
-//			// TODO ©“®¶¬‚³‚ê‚½ catch ƒuƒƒbƒN
+//			// TODO è‡ªå‹•ç”Ÿæˆã•ã‚ŒãŸ catch ãƒ–ãƒ­ãƒƒã‚¯
 //			e.printStackTrace();
 //		} catch (InstantiationException e) {
-//			// TODO ©“®¶¬‚³‚ê‚½ catch ƒuƒƒbƒN
+//			// TODO è‡ªå‹•ç”Ÿæˆã•ã‚ŒãŸ catch ãƒ–ãƒ­ãƒƒã‚¯
 //			e.printStackTrace();
 //		} catch (IllegalAccessException e) {
-//			// TODO ©“®¶¬‚³‚ê‚½ catch ƒuƒƒbƒN
+//			// TODO è‡ªå‹•ç”Ÿæˆã•ã‚ŒãŸ catch ãƒ–ãƒ­ãƒƒã‚¯
 //			e.printStackTrace();
 //		} catch (InvocationTargetException e) {
-//			// TODO ©“®¶¬‚³‚ê‚½ catch ƒuƒƒbƒN
+//			// TODO è‡ªå‹•ç”Ÿæˆã•ã‚ŒãŸ catch ãƒ–ãƒ­ãƒƒã‚¯
 //			e.printStackTrace();
 //		}
 		return true;
@@ -137,9 +138,9 @@ public class Oparator {
 		List list = new ArrayList<Method>();
 
 //		Method[] method1 = obj.getClass().getDeclaredMethods();
-		Method[] method2 = obj.getClass().getMethods();
+		Method[] methods = obj.getClass().getMethods();
 
-		for(Method m: method2) {
+		for(Method m: methods) {
 			list.add(m);
 		}
 
@@ -148,11 +149,21 @@ public class Oparator {
 //				list.add(m);
 //			}
 //		}
+		setMethod(methods);
 		return list;
 	}
 	
-	public static Object runMethod(Object o, Method m, Object... args) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException{
-		return m.invoke(o, args);
+	public static void setMethod(Method[] methods) {
+		method = methods;
+	}
+	
+	public Method[] getMethod() {
+		return method;
+	}
+	
+	
+	public static Object runMethod(Object obj, Method method, Object... args) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException{
+		return method.invoke(obj, args);
 	}
 
 	public static List getFields(Object o){
@@ -176,10 +187,10 @@ public class Oparator {
 				f.setAccessible(true);
 				list.add(f.get(o));
 			} catch (IllegalArgumentException e) {
-				// TODO ©“®¶¬‚³‚ê‚½ catch ƒuƒƒbƒN
+				// TODO è‡ªå‹•ç”Ÿæˆã•ã‚ŒãŸ catch ãƒ–ãƒ­ãƒƒã‚¯
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
-				// TODO ©“®¶¬‚³‚ê‚½ catch ƒuƒƒbƒN
+				// TODO è‡ªå‹•ç”Ÿæˆã•ã‚ŒãŸ catch ãƒ–ãƒ­ãƒƒã‚¯
 				e.printStackTrace();
 			}
 		}

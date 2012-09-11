@@ -20,8 +20,7 @@ class TypeDesc {
 
   // 型名にラベル付けする printType() で使用される
   private static String[]
-      basic   = { "class",   "interface",
-                  "enum",    "annotation" },
+      basic   = { "class",   "interface", "enum",    "annotation" },
       supercl = { "extends", "implements" },
       iFace   = { "null",    "extends" };
 
@@ -40,13 +39,13 @@ class TypeDesc {
       throw new Error("Unexpected non-class type");
 
     // Object クラスの場合は終了
-    if (cls == Object.class)
+    if (cls == java.lang.Object.class)
       return;
 
     // この型を表示
     for (int i = 0; i < depth; ++i)
       out.print(" ");
-    int kind = cls.isAnnotation() ? 2 :
+    int kind = cls.isAnnotation() ? 3 :
       cls.isEnum() ? 2 :
       cls.isInterface() ? 1 : 0;
     out.print(labels[kind] + " ");

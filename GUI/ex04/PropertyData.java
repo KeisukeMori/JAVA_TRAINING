@@ -13,7 +13,7 @@ class PropertyData implements Serializable {
 	static final String[] colorString = ColorUtils.getColorStrings();
 	static final String[] fontSet = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
 
-	// コンストラクタ
+	// 繧ｳ繝ｳ繧ｹ繝医Λ繧ｯ繧ｿ
 	PropertyData() {
 		font = new Font("Default", Font.PLAIN, 30);
 		fontColor = Color.BLACK;
@@ -51,22 +51,22 @@ class PropertyData implements Serializable {
 	}
 
 	int fontValue() {
-		return getIndexValue(font.getName(), fontSet);
+		return getIdxValue(font.getName(), fontSet);
 	}
 
 	int fontSizeValue() {
-		return getIndexValue(String.valueOf(font.getSize()), fontSize);
+		return getIdxValue(String.valueOf(font.getSize()), fontSize);
 	}
 
 	int fontColorValue() {
-		return getIndexValue(ColorUtils.getStringFromColor(fontColor), colorString);
+		return getIdxValue(ColorUtils.getStringFromColor(fontColor), colorString);
 	}
 
 	int backColorValue() {
-		return getIndexValue(ColorUtils.getStringFromColor(backColor), colorString);
+		return getIdxValue(ColorUtils.getStringFromColor(backColor), colorString);
 	}
 
-	private int getIndexValue(String key, String[] targets) {
+	private int getIdxValue(String key, String[] targets) {
 		int index = -1;
 		for (int i = 0; i < targets.length; ++i) {
 			if (key.equals(targets[i])) {
@@ -91,11 +91,12 @@ class PropertyData implements Serializable {
 	}
 
 	static PropertyData byteToProperty(byte[] bytes) {
-		ByteArrayInputStream byteOut = new ByteArrayInputStream(bytes);
 		PropertyData propertyData = null;
+		ByteArrayInputStream byteIn = new ByteArrayInputStream(bytes);
+
 
 		try {
-			ObjectInputStream objIn = new ObjectInputStream(byteOut);
+			ObjectInputStream objIn = new ObjectInputStream(byteIn);
 			propertyData = (PropertyData)objIn.readObject();
 		} catch (IOException e) {
 			e.printStackTrace();

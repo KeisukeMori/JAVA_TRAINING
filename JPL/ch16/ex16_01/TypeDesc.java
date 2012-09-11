@@ -39,7 +39,7 @@ class TypeDesc {
       throw new Error("Unexpected non-class type");
 
     // Object クラスの場合は終了
-    if (cls == Object.class)
+    if (cls == java.lang.Object.class)
       return;
 
     // この型を表示

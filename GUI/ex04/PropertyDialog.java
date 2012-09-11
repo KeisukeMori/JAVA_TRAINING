@@ -43,47 +43,47 @@ class PropertyDialog extends Dialog implements ActionListener, ItemListener {
     setLayout(layout);
     constraints = new GridBagConstraints();
 
-    fontLabel = new Label("フォント");
-    fontSizeLabel = new Label("フォントサイズ");
-    fontColorLabel = new Label("フォント色");
-    backColorLabel = new Label("背景色");
+    fontLabel = new Label("font");
+    fontSizeLabel = new Label("font size");
+    fontColorLabel = new Label("font color");
+    backColorLabel = new Label("background color");
 
-    fontList = new List(5, false);
+    fontList = new List(6, false);
     for (String font : PropertyData.fontSet) {
       fontList.add(font);
     }
 
-    fontSizeList = new List(5, false);
+    fontSizeList = new List(6, false);
     for (String fontSize : PropertyData.fontSize) {
       fontSizeList.add(fontSize);
     }
 
-    fontColorList = new List(5, false);
+    fontColorList = new List(6, false);
     for (String fontColor : PropertyData.colorString) {
       fontColorList.add(fontColor);
     }
 
-    backColorList = new List(5, false);
+    backColorList = new List(6, false);
     for (String backColor : PropertyData.colorString) {
       backColorList.add(backColor);
     }
 
     okButton = new Button("OK");
-    cancelButton = new Button("キャンセル");
+    cancelButton = new Button("cancel");
   } // end PropertyDialog()
 
   void init() {
-    /* label setting */
+    // label setting
     fontLabel.setFont(dialogFont);
     fontSizeLabel.setFont(dialogFont);
     fontColorLabel.setFont(dialogFont);
     backColorLabel.setFont(dialogFont);
 
-    /* constraints common setting */
-    constraints.insets = new Insets(5, 10, 5, 10);
+    // constraints common setting
+    constraints.insets = new Insets(5, 5, 5, 5);
 
 
-    /* label setting */
+    // label setting
     constraints.weightx = 0.4;
     constraints.gridwidth = GridBagConstraints.RELATIVE;
     constraints.anchor = GridBagConstraints.EAST;

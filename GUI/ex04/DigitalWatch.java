@@ -30,20 +30,19 @@ class DigitalWatch extends Frame implements ActionListener, MouseMotionListener,
 		super("DigitalWatch");
 		setResizable(false);
 		dateFormat = new SimpleDateFormat("HH:mm:ss");
-		//    timeZone = TimeZone.getTimeZone("Asia/Tokyo");
-		//    dateFormat.setTimeZone(timeZone);
+		setSize(100,100);
 
-		// •Â‚¶‚éˆ—
+		// é–‰ã˜ã‚‹å‡¦ç†
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				saveProperty();
 				System.exit(0);
 			}
 		});
-		// ƒƒjƒ…[ƒo[
+		// ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãƒãƒ¼
 		addMenu();
 
-		// İ’è’læ“¾
+		// è¨­å®šå€¤å–å¾—
 		preference = Preferences.userNodeForPackage(getClass());
 		try {
 			Object obj = Preference.getObject(preference, PRE_PROPERTY_KEY);
@@ -65,14 +64,14 @@ class DigitalWatch extends Frame implements ActionListener, MouseMotionListener,
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		propertyDialog = new PropertyDialog(this, "ƒvƒƒpƒeƒB");
+		propertyDialog = new PropertyDialog(this, "property");
 		propertyDialog.init();
 
 //		pop = new PropertyPopupMenu();
 //		pop.init();
 //		add(pop);
 
-		// ƒ}ƒEƒXƒCƒxƒ“ƒg
+		// ãƒã‚¦ã‚¹ã‚¤ãƒ™ãƒ³ãƒˆ
 		addMouseListener(new MouseAdapter() {
 //			public void mouseClicked(MouseEvent e) {
 //				/* right click event */
@@ -103,7 +102,7 @@ class DigitalWatch extends Frame implements ActionListener, MouseMotionListener,
 		thread.start();
 	}
 
-	// •\¦
+	// è¡¨ç¤º
 	public void paint(Graphics g) {
 		Image imageBuffer = createImage(getWidth(), getHeight());
 		Graphics2D buffer = (Graphics2D)imageBuffer.getGraphics();
@@ -135,7 +134,7 @@ class DigitalWatch extends Frame implements ActionListener, MouseMotionListener,
 
 	public void run() {
 		while (true) {
-			//Ä•`‰æ
+			//å†æç”»
 			repaint();
 			try {
 				Thread.sleep(1000);
@@ -145,7 +144,7 @@ class DigitalWatch extends Frame implements ActionListener, MouseMotionListener,
 		}
 	}
 	
-	// XV
+	// æ›´æ–°
 	public void update(Graphics g) {
 		paint(g);
 	}
@@ -165,12 +164,12 @@ class DigitalWatch extends Frame implements ActionListener, MouseMotionListener,
 	
 	private void addMenu() {
 		menuBar = new MenuBar();
-		menu = new Menu("ƒƒjƒ…[");
+		menu = new Menu("menu");
 		setMenuBar(menuBar);
 		menu.addActionListener(this);
 		menuBar.add(menu);
-		propertyMenu = new MenuItem("ƒvƒƒpƒeƒB");
-		exitMenu = new MenuItem("•Â‚¶‚é");
+		propertyMenu = new MenuItem("property");
+		exitMenu = new MenuItem("close");
 		propertyMenu.addActionListener(this);
 		exitMenu.addActionListener(this);
 		menu.add(propertyMenu);

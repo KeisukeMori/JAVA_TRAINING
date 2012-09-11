@@ -17,6 +17,10 @@ public class ConstructorType {
     }
   }
 
+  public void saveConstructor(String key, Constructor<?> con) {
+	    constructors.put(key, con);
+	  }
+  
   public Constructor<?> getConstructor(String key) {
     return constructors.get(key);
   }

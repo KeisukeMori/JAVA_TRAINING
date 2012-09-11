@@ -10,14 +10,13 @@ import javax.swing.border.*;
 
 public class MainWindow extends JFrame implements ActionListener {
 	private static final long serialVersionUID = -1836727108622520391L;
-	private ObjectType objectType;
 
 	// クラス検索用
 	private JLabel searchLabel;
 	private JTextField searchText;
 	private JButton searchButton;
+	
 	// コンストラクタ用
-
 	private JButton constClearButton;  
 	private JList constList;      
 	private DefaultListModel constructors;
@@ -30,6 +29,7 @@ public class MainWindow extends JFrame implements ActionListener {
 	private JList  objectList; 
 	private DefaultListModel objects;
 	private JScrollPane objectScroll;
+	
 	// メソッド呼び出し用
 	private JButton methodBtn; 
 	private JList methodList;      
@@ -37,11 +37,15 @@ public class MainWindow extends JFrame implements ActionListener {
 	private JScrollPane methodScroll; 
 	private JButton runMethodBtn;
 	private JTextField runMethodText;
+	
 	// フィールド呼び出し用
 	private JButton fieldBtn;
-	private JTable fieldtable;
+	private JList fieldList;
+	private DefaultListModel fields;
 	private JScrollPane fieldScroll; 
 	private JButton setFieldBtn;
+	private JTextField setFieldText;
+	
 	// パラメータ用
 	private JLabel paramLabel;          
 	private JLabel objectNameLabel;     
@@ -51,9 +55,13 @@ public class MainWindow extends JFrame implements ActionListener {
 
 	// オブジェクト生成ボタン
 	private JButton createObjectBtn; 
+	
+	// 配列生成用ボタン
+	private JButton arrayBtn;
+	
 	private GridBagLayout layout;
 	private GridBagConstraints constraints;
-
+	
 	private static final Font commonFont = new Font("Arial", Font.PLAIN, 14);
 	private List<Method> methodListNum;
 	private Oparator classOperator;
@@ -65,7 +73,6 @@ public class MainWindow extends JFrame implements ActionListener {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		objectType = new ObjectType();
 		// レイアウトの設定
 		layout = new GridBagLayout();
 		setLayout(layout);
@@ -77,7 +84,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		constraints.insets = new Insets(1, 1, 1, 1);
 		constraints.gridwidth = GridBagConstraints.REMAINDER;
 
-		addComponent(searchLabel, 0, 1, 1, 1);
+		addComponent(searchLabel, 0, 0, 1, 1);
 		addComponent(searchText, 0, 2, 4, 1);
 		addComponent(searchButton, 4, 2, 1, 1);
 
@@ -115,7 +122,10 @@ public class MainWindow extends JFrame implements ActionListener {
 		addComponent(fieldBtn, 24, 2, 1, 1);
 		addComponent(setFieldBtn, 25, 2, 1, 1);
 		addComponent(fieldScroll, 24, 3, 5, 8);
-
+		addComponent(setFieldText, 24, 11, 4, 2);
+		
+		addComponent(arrayBtn, 25, 13, 1, 1);
+		
 		new MessageWindow();
 
 		searchButton.addActionListener(this);
@@ -127,6 +137,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		setFieldBtn.addActionListener(this);
 		objectClearBtn.addActionListener(this);
 		createObjectBtn.addActionListener(this);
+		arrayBtn.addActionListener(this);
 
 		setVisible(true);
 	}
@@ -139,7 +150,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		searchLabel = new JLabel("class");
 		searchLabel.setFont(commonFont);
 		searchText = new JTextField();
-		searchText.setText("java.lang.String");
+		searchText.setText("java.awt.Frame");
 		searchText.setPreferredSize(new Dimension(140, 20));
 		searchButton = new JButton("Search");
 
@@ -186,7 +197,6 @@ public class MainWindow extends JFrame implements ActionListener {
 		methodScroll.getViewport().setView(methodList);
 		methodScroll.setPreferredSize(new Dimension(200, 200));
 		runMethodBtn = new JButton("run methods");
-		fieldBtn = new JButton("fields");
 
 		runMethodText = new JTextField();
 		runMethodText.setText("1,1");
@@ -194,11 +204,20 @@ public class MainWindow extends JFrame implements ActionListener {
 
 		//フィールド表示
 		fieldBtn = new JButton("field");
-		fieldtable = new JTable(20, 2);
+		fields = new DefaultListModel();
+		fieldList = new JList(fields);
+		fieldList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		fieldScroll = new JScrollPane();
-		fieldScroll.getViewport().setView(fieldtable);
+		fieldScroll.getViewport().setView(fieldList);
 		fieldScroll.setPreferredSize(new Dimension(200, 200));
 		setFieldBtn = new JButton("set fields");
+		
+		setFieldText = new JTextField();
+		setFieldText.setText("test");
+		setFieldText.setPreferredSize(new Dimension(140, 20));
+		
+		// 配列生成用 
+		arrayBtn = new JButton("array");
 	}
 
 	private void addComponent(Component com, int x, int y, int width, int height) {
@@ -237,88 +256,18 @@ public class MainWindow extends JFrame implements ActionListener {
 			classOperator.objectClearButton();
 			// メソッドボタン	
 		} else if (source == methodBtn) {
-			// 未完成
-			Object obj = ObjectType.getObject(objectNameText.getText());
-			System.out.println("obj" + obj );
-			Oparator.getMethods(obj);
+			methods.clear();
+			classOperator.methodBtn();
 
 		} else if (source == runMethodBtn) {
-			Object obj = ObjectType.getObject(objectNameText.getText());
-			System.out.println("obj" + obj );
-			System.out.println("getSelectedIndex" + methodList.getSelectedIndex() );
-			obj.getClass().getMethods();
-//			Method method = methodListNum.get(methodList.getSelectedIndex());
-			String methodName = (String)methodList.getSelectedValue();
-			System.out.println("methodName " + methodName );
-			Method[] methodValue = classOperator.getMethod();
+			classOperator.methodRunButton();
 
-			System.out.println("methodValue length " + methodValue.length );
-
-			Method method = null;
-			for (int i = 0; i < methodValue.length; i++) {
-				if(methodValue[i].getName().equals(methodName)){
-					method = methodValue[i];
-					System.out.println("exec method " + method.getName());
-				}
-			}
-		//	Method method = (Method)methodListNum.get(methodList.getSelectedIndex());
-			String text = runMethodText.getText();
-			String[] textParams = text.split(",");
-
-			Class[] clazz = method.getParameterTypes();
-			Object[] params = new Object[clazz.length];
-
-			try {
-				for(int i = 0; i < clazz.length; i++) {
-					String tos = clazz[i].toString();
-					if(tos.matches(".*String.*")) {
-						params[i] = textParams[i];
-					} else if(tos.matches(".*boolean.*")) {
-						params[i] = new Boolean(textParams[i]);
-					} else if(tos.matches(".*int.*")) {
-						params[i] = new Integer(textParams[i]);
-					} else if(tos.matches(".*byte.*")) {
-						params[i] = new Byte(textParams[i]);
-					} else if(tos.matches(".*char.*")) {
-						params[i] = new Character(textParams[i].charAt(0));
-					} else if(tos.matches(".*short.*")) {
-						params[i] = new Short(textParams[i]);
-					} else if(tos.matches(".*long.*")) {
-						params[i] = new Long(textParams[i]);
-					} else if(tos.matches(".*float.*")) {
-						params[i] = new Float(textParams[i]);
-					} else if(tos.matches(".*double.*")) {
-						params[i] = new Double(textParams[i]);
-					} else if(textParams[i].matches(".*\\:.*")){
-						String clasType = textParams[i].split("\\:")[0];
-						String f = textParams[i].split("\\:")[1];
-						params[i] = Class.forName(clasType).getDeclaredField(f).get(null);
-					}
-				}
-			} catch(Exception ex) {
-				ex.getStackTrace();
-			}
-			try {
-				classOperator.runMethod(obj, method, params);
-			} catch (IllegalArgumentException e1) {
-				e1.printStackTrace();
-			} catch (IllegalAccessException e1) {
-				e1.printStackTrace();
-			} catch (InvocationTargetException e1) {
-				e1.printStackTrace();
-			}
 			// フィールド呼び出しボタン
 		} else if (source == fieldBtn) {
-			Object obj = ObjectType.getObject(objectNameText.getText());
-			List firldLists = classOperator.getFields(obj);
-			List valueLists = classOperator.getValues(obj);
-			for (int i = 0; i < firldLists.size(); i++) {
-				fieldtable.setValueAt(firldLists.get(i), i, 0);
-				fieldtable.setValueAt(valueLists.get(i), i, 1);
-			}
+			fields.clear();
+			classOperator.fieldBtn();
 		} else if (source == setFieldBtn) {
-			
-			
+			classOperator.fieldSetButton();
 			
 			// オブジェクト生成ボタン
 		} else if (source == createObjectBtn) { 
@@ -328,6 +277,8 @@ public class MainWindow extends JFrame implements ActionListener {
 				objectList.ensureIndexIsVisible(objects.getSize() - 1);
 				System.out.println("オブジェクト  "  + objName +  "生成");
 			}
+		} else if (source == arrayBtn) {
+			
 		}
 	}
 
@@ -337,6 +288,11 @@ public class MainWindow extends JFrame implements ActionListener {
 			constList.ensureIndexIsVisible(constructors.getSize() - 1);
 		}
 	}
+	
+	  public void printConstructor (String constName) {
+		    constructors.addElement(constName);
+		    constList.ensureIndexIsVisible(constructors.getSize() - 1);
+		  }
 
 	public void printMethodList (List<Method> lists) {
 		methodListNum = lists;
@@ -353,6 +309,16 @@ public class MainWindow extends JFrame implements ActionListener {
 		}
 	}
 
+	  public void printMethod(String method) {
+		    methods.addElement(method);
+		    methodList.ensureIndexIsVisible(methods.getSize() - 1);
+		  }
+	  
+	  public void printField(String field) {
+		    fields.addElement(field);
+		    fieldList.ensureIndexIsVisible(fields.getSize() - 1);
+		  }
+	
 	public void addObject() {
 
 	}
@@ -364,6 +330,10 @@ public class MainWindow extends JFrame implements ActionListener {
 	public String getObjectName() {
 		return objectNameText.getText();
 	}
+	
+	  public String getSelectedObject() {
+		    return (String)objectList.getSelectedValue();
+		  }
 
 	public String getConstName() {
 		return (String)constList.getSelectedValue();
@@ -371,6 +341,22 @@ public class MainWindow extends JFrame implements ActionListener {
 
 	public String getParamName() {
 		return paramTextFiled.getText();
+	}
+	
+	public String getMethodName() {
+		return (String)methodList.getSelectedValue();
+	}
+	
+	public String getRunMethodParams() {
+		return runMethodText.getText();
+	}
+	
+	  public String getFieldName() {
+		    return (String)fieldList.getSelectedValue();
+		  }
+	
+	public String getFieldValue() {
+		return setFieldText.getText();
 	}
 
 	class MyMouseListener extends MouseAdapter implements MouseListener {

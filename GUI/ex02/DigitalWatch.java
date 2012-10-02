@@ -4,11 +4,11 @@ import java.awt.event.*;
 import java.awt.*;
 import java.util.Calendar;
 
-public class DigitalWatch extends Frame implements Runnable, ActionListener, MouseListener {
+public class DigitalWatch extends Frame implements Runnable, ActionListener {
 	private static final long serialVersionUID = 1L;
-	private int hour;           //‚ğ“ü‚ê‚é•Ï”‚ğéŒ¾
-	private int minute;           //•ª‚ğ“ü‚ê‚é•Ï”‚ğéŒ¾
-	private int second;           //•b‚ğ“ü‚ê‚é•Ï”‚ğéŒ¾
+	private int hour;           //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïï¿½ï¿½ï¿½éŒ¾
+	private int minute;           //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïï¿½ï¿½ï¿½éŒ¾
+	private int second;           //ï¿½bï¿½ï¿½ï¿½ï¿½ï¿½Ïï¿½ï¿½ï¿½éŒ¾
 
 	private Thread th;
 	private PropertyDialog dialog = null;
@@ -16,7 +16,6 @@ public class DigitalWatch extends Frame implements Runnable, ActionListener, Mou
 	private MenuItem menuProperty;
 	private Image imageBuffer;
 	private Graphics graphicBuffer;
-	private PopupMenu popUp;
 
 
 	private String fontType = "DIALOG";
@@ -30,43 +29,37 @@ public class DigitalWatch extends Frame implements Runnable, ActionListener, Mou
 	private String timeString;
 	private MenuBar menuBar;
 
-	// ƒtƒHƒ“ƒg‚ÌƒfƒtƒHƒ‹ƒg‚Ìİ’è
+	// ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½Ìƒfï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½Ìİ’ï¿½
 	private Font fontSetting = new Font("TimesRoman", Font.PLAIN, 48);
 
 	public DigitalWatch(String title) {
-		//ƒ^ƒCƒgƒ‹
+		//ï¿½^ï¿½Cï¿½gï¿½ï¿½
 		super(title);
 
 		addWindowListener(new CurrentWindowAdapter());
-		// ƒƒjƒ…[ƒo[‚ğì¬‚·‚é
+		// ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½oï¿½[ï¿½ï¿½ï¿½ì¬ï¿½ï¿½ï¿½ï¿½
 		menuBar = new MenuBar();
 		setMenuBar(menuBar);        
 
-		menuBox = new Menu("ƒƒjƒ…[");
+		menuBox = new Menu("ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[");
 		menuBox.addActionListener(this);
 		menuBar.add(menuBox);
 
-		menuProperty = new MenuItem("ƒvƒƒpƒeƒB");
+		menuProperty = new MenuItem("ï¿½vï¿½ï¿½ï¿½pï¿½eï¿½B");
 		menuBox.add(menuProperty);
 
-		// ƒ_ƒCƒAƒƒO‚ğ¶¬‚·‚é
+		// ï¿½_ï¿½Cï¿½Aï¿½ï¿½ï¿½Oï¿½ğ¶ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (dialog == null) {
 			dialog = new PropertyDialog(this);
 		}
-        /* ƒ|ƒbƒvƒAƒbƒvƒƒjƒ…[‚ğì¬‚·‚é */
-        popUp = new PopupMenu();
-        popUp.add("Ÿ‰ñ‚ğ‚±‚¤‚²Šú‘Ò‚­‚¾‚³‚¢");
-        add(popUp);
-		
-		addMouseListener(this);
 
 	}
 
 	public String getTime() {
 		Calendar calendar = Calendar.getInstance();
-		hour = calendar.get(Calendar.HOUR_OF_DAY); //‚ğ‘ã“ü
-		minute = calendar.get(Calendar.MINUTE);      //•ª‚ğ‘ã“ü
-		second= calendar.get(Calendar.SECOND);       //•b‚ğ‘ã“ü
+		hour = calendar.get(Calendar.HOUR_OF_DAY); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		minute = calendar.get(Calendar.MINUTE);      //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		second= calendar.get(Calendar.SECOND);       //ï¿½bï¿½ï¿½ï¿½ï¿½
 		return padZero(hour) + ":" + padZero(minute) + ":" + padZero(second);
 	}
 
@@ -81,7 +74,7 @@ public class DigitalWatch extends Frame implements Runnable, ActionListener, Mou
 	public void paint(Graphics g) {
 		timeString = getTime();
 		
-		// ƒEƒBƒ“ƒhƒEƒTƒCƒY‚ÌŒvZ
+		// ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½Tï¿½Cï¿½Yï¿½ÌŒvï¿½Z
 		windowX = calXSize();
 		windowY = calYSize();
 		setSize(windowX, windowY);
@@ -114,21 +107,21 @@ public class DigitalWatch extends Frame implements Runnable, ActionListener, Mou
 		return y;
 	}
 	
-	@Override
+
 	public void update(Graphics g) {
 		paint(g);
 	}
 
-	@Override
+
 	public void run() {
 		while(true) {
 			getTime();
 
-			// Ä•`‰æ
+			// ï¿½Ä•`ï¿½ï¿½
 			repaint();
 
 			try {
-				th.sleep(1000); // ƒXƒŠ[ƒv1•b
+				th.sleep(1000); // ï¿½Xï¿½ï¿½ï¿½[ï¿½v1ï¿½b
 			} catch(InterruptedException e) {
 				;
 			}
@@ -136,8 +129,8 @@ public class DigitalWatch extends Frame implements Runnable, ActionListener, Mou
 	}
 
 	/**
-	 * ƒtƒHƒ“ƒgƒ^ƒCƒvæ“¾
-	 * @return ƒtƒHƒ“ƒgƒ^ƒCƒv
+	 * ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½^ï¿½Cï¿½vï¿½æ“¾
+	 * @return ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½^ï¿½Cï¿½v
 	 */
 	public String getFontType() {
 		return fontType;
@@ -145,56 +138,56 @@ public class DigitalWatch extends Frame implements Runnable, ActionListener, Mou
 
 
 	/**
-	 * ƒtƒHƒ“ƒgƒ^ƒCƒv‚ÌƒZƒbƒg
-	 * @param fontType ƒtƒHƒ“ƒgƒ^ƒCƒv
+	 * ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½^ï¿½Cï¿½vï¿½ÌƒZï¿½bï¿½g
+	 * @param fontType ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½^ï¿½Cï¿½v
 	 */
 	public void setFontType(String fontType) {
 		this.fontType = fontType;
 	}
 
 	/**
-	 * ƒtƒHƒ“ƒgƒTƒCƒY‚Ìæ“¾
-	 * @return ƒtƒHƒ“ƒgƒTƒCƒY
+	 * ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½Tï¿½Cï¿½Yï¿½Ìæ“¾
+	 * @return ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½Tï¿½Cï¿½Y
 	 */
 	public Integer getFontSize() {
 		return fontSize;
 	}
 
 	/**
-	 * ƒtƒHƒ“ƒgƒTƒCƒY‚ÌƒZƒbƒg
-	 * @param fontSize ƒtƒHƒ“ƒgƒTƒCƒY
+	 * ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½Tï¿½Cï¿½Yï¿½ÌƒZï¿½bï¿½g
+	 * @param fontSize ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½Tï¿½Cï¿½Y
 	 */
 	public void setFontSize(int fontSize) {
 		this.fontSize = fontSize;
 	}
 
 	/**
-	 * ƒtƒHƒ“ƒgƒJƒ‰[‚Ìæ“¾
-	 * @return ƒtƒHƒ“ƒgƒJƒ‰[
+	 * ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½Jï¿½ï¿½ï¿½[ï¿½Ìæ“¾
+	 * @return ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½Jï¿½ï¿½ï¿½[
 	 */
 	public Color getFontColor() {
 		return fontColor;
 	}
 
 	/**
-	 * ƒtƒHƒ“ƒgƒJƒ‰[‚ÌƒZƒbƒg
-	 * @param fontColor ƒtƒHƒ“ƒgƒJƒ‰[
+	 * ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½Jï¿½ï¿½ï¿½[ï¿½ÌƒZï¿½bï¿½g
+	 * @param fontColor ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½Jï¿½ï¿½ï¿½[
 	 */
 	public void setFontColor(Color fontColor) {
 		this.fontColor = fontColor;
 	}
 
 	/**
-	 * ”wŒiF‚ğæ“¾‚µ‚Ü‚·B
-	 * @return ”wŒiF
+	 * ï¿½wï¿½iï¿½Fï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B
+	 * @return ï¿½wï¿½iï¿½F
 	 */
 	public Color getBackgroundColor() {
 		return backgroundColor;
 	}
 
 	/**
-	 * ”wŒiF‚ğƒZƒbƒg‚µ‚Ü‚·
-	 * @param backgroundColor ”wŒiF
+	 * ï¿½wï¿½iï¿½Fï¿½ï¿½ï¿½Zï¿½bï¿½gï¿½ï¿½ï¿½Ü‚ï¿½
+	 * @param backgroundColor ï¿½wï¿½iï¿½F
 	 */
 	public void setBackgroundColor(Color backgroundColor) {
 		this.backgroundColor = backgroundColor;
@@ -205,7 +198,7 @@ public class DigitalWatch extends Frame implements Runnable, ActionListener, Mou
 	 * @param args
 	 */
 	 public static void main(String[] args) {
-		 DigitalWatch window = new DigitalWatch("ƒfƒWƒ^ƒ‹Œv");
+		 DigitalWatch window = new DigitalWatch("ï¿½fï¿½Wï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½v");
 		 window.setSize(400, 200);
 		 window.setResizable(false);
 		 window.setVisible(true);
@@ -216,14 +209,14 @@ public class DigitalWatch extends Frame implements Runnable, ActionListener, Mou
 		 window.imageBuffer = window.createImage(400, 200);
 		 window.graphicBuffer = window.imageBuffer.getGraphics();
 
-		 // ƒXƒŒƒbƒhƒXƒ^[ƒg
+		 // ï¿½Xï¿½ï¿½ï¿½bï¿½hï¿½Xï¿½^ï¿½[ï¿½g
 		 window.th.start();
 
 	}
 
-	 @Override
+
 	 public void actionPerformed(ActionEvent e) {
-		 if (e.getActionCommand() == "ƒvƒƒpƒeƒB") {
+		 if (e.getActionCommand() == "ï¿½vï¿½ï¿½ï¿½pï¿½eï¿½B") {
 			 dialog.setVisible(true);
 		 } 
 		 // if else 
@@ -231,37 +224,9 @@ public class DigitalWatch extends Frame implements Runnable, ActionListener, Mou
 	 
 	
 	public class CurrentWindowAdapter extends WindowAdapter {
-			public void windowClosing(WindowEvent e) {   //~‚ğ‰Ÿ‚³‚ê‚½‚Æ‚«‚Ìˆ—
+			public void windowClosing(WindowEvent e) {   //ï¿½~ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½Æ‚ï¿½ï¿½Ìï¿½ï¿½ï¿½
 				System.exit(0);
 			}
 	 }
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		popUp.show(this, 100, 100);
-		repaint();
-	}
-	
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO ©“®¶¬‚³‚ê‚½ƒƒ\ƒbƒhEƒXƒ^ƒu
-		
-	}
 
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO ©“®¶¬‚³‚ê‚½ƒƒ\ƒbƒhEƒXƒ^ƒu
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO ©“®¶¬‚³‚ê‚½ƒƒ\ƒbƒhEƒXƒ^ƒu
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO ©“®¶¬‚³‚ê‚½ƒƒ\ƒbƒhEƒXƒ^ƒu
-		
-	}
 }

@@ -388,6 +388,8 @@ public class Oparator {
 		Class<?> clazz = null;
 		try {
 			clazz = Class.forName(clsName);
+			System.out.println(clazz);
+
 		} catch (ClassNotFoundException e) {
 			System.out.println("クラス" + clsName+ "が見つかりません ");
 			causeException(e);
@@ -402,7 +404,6 @@ public class Oparator {
 
 		Array.set(obj, arrayIndex, paramObj[0]);
 		String objAryName = objName + "[" + arrayIndex + "]";
-		System.out.println(objAryName + " を " + paramObj[0] + " にしました");
 
 		objectType.saveObject(objAryName, paramObj[0]);
 		mainWindow.addObjectName(objAryName);

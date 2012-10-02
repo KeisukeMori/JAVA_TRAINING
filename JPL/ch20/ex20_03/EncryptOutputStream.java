@@ -11,7 +11,6 @@ public class EncryptOutputStream extends FilterOutputStream {
 		super(out);
 	}
 
-	@Override
 	public void write(int b) throws IOException {
 		b ^= key;
 		super.write(b);

@@ -19,7 +19,7 @@ public class PropertyDialog extends Dialog implements ActionListener, ItemListen
 	Color tmpFontColor = Color.black;
 	Color tmpBackgroundColor = Color.white;
 
-	Button CancelButton = new Button("ƒLƒƒƒ“ƒZƒ‹");
+	Button CancelButton = new Button("ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Zï¿½ï¿½");
 	Button OKButton = new Button("OK");
 
 	DigitalWatch digitalWatch;
@@ -30,14 +30,14 @@ public class PropertyDialog extends Dialog implements ActionListener, ItemListen
 
 		digitalWatch = (DigitalWatch)owner;
 
-		// Œ»İ‚ÌŒv‚Ìİ’è‚ğæ“¾‚·‚é
+		// ï¿½ï¿½ï¿½İ‚Ìï¿½ï¿½vï¿½Ìİ’ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½
 		tmpFontType = digitalWatch.getFontType();
 		tmpFontSize = digitalWatch.getFontSize();
 		tmpFontColor = digitalWatch.getFontColor();
 		tmpBackgroundColor = digitalWatch.getBackgroundColor();
 
 		setLayout(new BorderLayout());
-		setTitle("ƒvƒƒpƒeƒB");
+		setTitle("ï¿½vï¿½ï¿½ï¿½pï¿½eï¿½B");
 		setSize(400, 150);
 		setResizable(false);
 
@@ -46,7 +46,7 @@ public class PropertyDialog extends Dialog implements ActionListener, ItemListen
 		this.add(propertyPanel, BorderLayout.NORTH);
 
 
-		// ƒŠƒXƒi[“o˜^
+		// ï¿½ï¿½ï¿½Xï¿½iï¿½[ï¿½oï¿½^
 		choiceFontType.addItemListener(this);
 		choiceFontSize.addItemListener(this);
 		choiceFontColor.addItemListener(this);
@@ -54,16 +54,16 @@ public class PropertyDialog extends Dialog implements ActionListener, ItemListen
 		CancelButton.addActionListener(this);
 		OKButton.addActionListener(this);
 
-		// ƒtƒHƒ“ƒgƒ^ƒCƒv
-		propertyPanel.add(new Label("ƒtƒHƒ“ƒgƒ^ƒCƒv"));
+		// ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½^ï¿½Cï¿½v
+		propertyPanel.add(new Label("ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½^ï¿½Cï¿½v"));
 		choiceFontType.add("DIALOG");
 		choiceFontType.add("SERIF");
 		choiceFontType.add("MONOSPACED");
 		choiceFontType.select(digitalWatch.getFontType());
 		propertyPanel.add(choiceFontType);
 
-		// ƒtƒHƒ“ƒgƒTƒCƒY
-		propertyPanel.add(new Label("ƒtƒHƒ“ƒgƒTƒCƒY "));
+		// ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½Tï¿½Cï¿½Y
+		propertyPanel.add(new Label("ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½Tï¿½Cï¿½Y "));
 		choiceFontSize.add("10");
 		choiceFontSize.add("20");
 		choiceFontSize.add("40");
@@ -85,13 +85,13 @@ public class PropertyDialog extends Dialog implements ActionListener, ItemListen
 			defaultFontColor = "black";
 		}
 
-		// ƒtƒHƒ“ƒgƒJƒ‰[
-		propertyPanel.add(new Label("ƒtƒHƒ“ƒgƒJƒ‰[ "));
-		choiceFontColor.add("•");
-		choiceFontColor.add("Ô");
-		choiceFontColor.add("—Î");
-		choiceFontColor.add("Â");
-		choiceFontColor.add("”’");
+		// ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½Jï¿½ï¿½ï¿½[
+		propertyPanel.add(new Label("ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½Jï¿½ï¿½ï¿½[ "));
+		choiceFontColor.add("ï¿½ï¿½");
+		choiceFontColor.add("ï¿½ï¿½");
+		choiceFontColor.add("ï¿½ï¿½");
+		choiceFontColor.add("ï¿½ï¿½");
+		choiceFontColor.add("ï¿½ï¿½");
 		choiceFontColor.select(defaultFontColor);
 		propertyPanel.add(choiceFontColor);
 
@@ -106,20 +106,20 @@ public class PropertyDialog extends Dialog implements ActionListener, ItemListen
 			defaultBackgroundColor = "white";
 		}
 
-		// ”wŒiF
-		propertyPanel.add(new Label("”wŒiF "));
-		choiceBackgroundColor.add("”’");
-		choiceBackgroundColor.add("•");
-		choiceBackgroundColor.add("Â");
+		// ï¿½wï¿½iï¿½F
+		propertyPanel.add(new Label("ï¿½wï¿½iï¿½F "));
+		choiceBackgroundColor.add("ï¿½ï¿½");
+		choiceBackgroundColor.add("ï¿½ï¿½");
+		choiceBackgroundColor.add("ï¿½ï¿½");
 		choiceBackgroundColor.select(defaultBackgroundColor);
 		propertyPanel.add(choiceBackgroundColor);
 
-		// ƒLƒƒƒ“ƒZƒ‹ƒ{ƒ^ƒ“
+		// ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Zï¿½ï¿½ï¿½{ï¿½^ï¿½ï¿½
 		propertyPanel.add(CancelButton);
-		// OKƒ{ƒ^ƒ“
+		// OKï¿½{ï¿½^ï¿½ï¿½
 		propertyPanel.add(OKButton);
 
-		// ƒ_ƒCƒAƒƒOƒ{ƒbƒNƒX‚ğ•Â‚¶‚é
+		// ï¿½_ï¿½Cï¿½Aï¿½ï¿½ï¿½Oï¿½{ï¿½bï¿½Nï¿½Xï¿½ï¿½Â‚ï¿½ï¿½ï¿½
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				setVisible(false);        	
@@ -129,49 +129,48 @@ public class PropertyDialog extends Dialog implements ActionListener, ItemListen
 
 	private static final long serialVersionUID = 3853419917132576660L;
 
-	@Override
+
 	public void itemStateChanged(ItemEvent e) {
-		//ƒtƒHƒ“ƒgƒ^ƒCƒv
+		//ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½^ï¿½Cï¿½v
 		if (choiceFontType == e.getSource()) {
 			tmpFontType = e.getItem().toString();
 		}
-		//ƒtƒHƒ“ƒgƒTƒCƒY
+		//ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½Tï¿½Cï¿½Y
 		else if (choiceFontSize == e.getSource()) {
 			tmpFontSize = Integer.parseInt(e.getItem().toString());
 		}
-		//ƒtƒHƒ“ƒgƒJƒ‰[
+		//ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½Jï¿½ï¿½ï¿½[
 		else if (choiceFontColor == e.getSource()) {
-			if ("•" == e.getItem()) {
+			if ("ï¿½ï¿½" == e.getItem()) {
 				tmpFontColor = Color.black;
-			} else if ("Ô" == e.getItem()) {
+			} else if ("ï¿½ï¿½" == e.getItem()) {
 				tmpFontColor = Color.red;
-			} else if ("—Î" == e.getItem()) {
+			} else if ("ï¿½ï¿½" == e.getItem()) {
 				tmpFontColor = Color.green;
-			} else if ("Â" == e.getItem()) {
+			} else if ("ï¿½ï¿½" == e.getItem()) {
 				tmpFontColor = Color.blue;
-			} else if ("”’" == e.getItem()) {
+			} else if ("ï¿½ï¿½" == e.getItem()) {
 				tmpFontColor = Color.WHITE;
 			} else {
 				tmpFontColor = Color.black;
 			}
 		}
 		else if (choiceBackgroundColor == e.getSource()) {
-			if ("”’" == e.getItem()) {
+			if ("ï¿½ï¿½" == e.getItem()) {
 				tmpBackgroundColor = Color.white;
-			} else if ("•" == e.getItem()) {
+			} else if ("ï¿½ï¿½" == e.getItem()) {
 				tmpBackgroundColor = Color.black;
-			} else if ("Â" == e.getItem()) {
+			} else if ("ï¿½ï¿½" == e.getItem()) {
 				tmpBackgroundColor = Color.blue;
 			} else {
 				tmpBackgroundColor = Color.white;
 			}
 		}
 	}
-	
-	@Override
+
 	public void actionPerformed(ActionEvent e) {
 
-		if ("ƒLƒƒƒ“ƒZƒ‹" == e.getActionCommand()) {
+		if ("ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Zï¿½ï¿½" == e.getActionCommand()) {
 			setVisible(false);
 		}
 		else if ("OK" == e.getActionCommand()) {

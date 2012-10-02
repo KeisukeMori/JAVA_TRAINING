@@ -185,9 +185,9 @@ class DigitalWatch extends Frame implements ActionListener, MouseMotionListener,
 		return new PropertyData(propertyData);
 	}
 
-	@Override
+
 	public void mouseMoved(MouseEvent e) {}
-	@Override
+
 	public void mouseDragged(MouseEvent e) {
 		if (e.getModifiers() == MouseEvent.BUTTON1_MASK) {
 			if (watchPosition == null)

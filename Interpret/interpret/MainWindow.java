@@ -79,12 +79,11 @@ public class MainWindow extends JFrame implements ActionListener {
 	private GridBagConstraints constraints;
 
 	private static final Font commonFont = new Font("Arial", Font.PLAIN, 14);
-	private List<Method> methodListNum;
-	private Oparator classOperator;
+	private Oparator interpretOperator;
 
 	public MainWindow(){
 		super("MainWindow");
-		classOperator = new Oparator(this);
+		interpretOperator = new Oparator(this);
 		setBounds(0, 0, 1000, 500);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -137,7 +136,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		addComponent(getArrayBtn, 1, 21, 1, 1);
 
 		addComponent(objField, 4, 19, 3, 1);
-		addComponent(objSetBtn, 4, 20, 1, 1);
+		addComponent(objSetBtn, 4, 20, 3, 1);
 
 		new MessageWindow();
 
@@ -259,7 +258,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		// 配列設定用
 		objField = new JTextField();
 		objField.setPreferredSize(new Dimension(130, 30));
-		objSetBtn = new JButton("set");
+		objSetBtn = new JButton("set array value");
 	}
 
 	private void addComponent(Component com, int x, int y, int width, int height) {
@@ -276,52 +275,52 @@ public class MainWindow extends JFrame implements ActionListener {
 		Object source = e.getSource();
 		// 検索ボタン
 		if (source == searchButton) { 
-			classOperator.searchButton(searchText.getText());
+			interpretOperator.searchButton(searchText.getText());
 
 			// コンストラクタクリアボタン	
 		} else if (source == conClearBtn) {
 			conModel.clear();
 			conList.ensureIndexIsVisible(conModel.getSize() - 1);
-			classOperator.constClearButton();
+			interpretOperator.constClearButton();
 			// コンストラクタ選択ボタン	
 		} else if (source == selectConBtn) {
 			if (conList.isSelectionEmpty()) {
 				System.out.println("コンストラクタを選択してください");
 			} else {
 				System.out.println(conList.getSelectedValue());
-				classOperator.selectButton((String)conList.getSelectedValue());
+				interpretOperator.selectButton((String)conList.getSelectedValue());
 			}
 			// オブジェクトクリアボタン	
 		} else if (source == objClearBtn) {
 			objModel.clear();
 			objList.ensureIndexIsVisible(objModel.getSize() - 1);
-			classOperator.objectClearButton();
+			interpretOperator.objectClearButton();
 			// メソッドボタン	
 		} else if (source == methodBtn) {
 			methodModel.clear();
-			classOperator.methodBtn();
+			interpretOperator.methodBtn();
 
 		} else if (source == runMethodBtn) {
-			classOperator.methodRunButton();
+			interpretOperator.methodRunButton();
 
 			// フィールド呼び出しボタン
 		} else if (source == fieldBtn) {
 			fieldModel.clear();
-			classOperator.fieldBtn();
+			interpretOperator.fieldBtn();
 			// フィールド設定ボタン
 		} else if (source == setFieldBtn) {
-			classOperator.fieldSetButton();
+			interpretOperator.fieldSetButton();
 			
 	    } else if (source == getFieldBtn) {
 	        if (fieldList.isSelectionEmpty()) {
 	          System.out.println("フィールドを選択してください");
 	          return;
 	        } else {
-	          classOperator.fieldValueGetButton();
+	          interpretOperator.fieldValueGetButton();
 	        }
 			// オブジェクト生成ボタン
 		} else if (source == createObjectBtn) { 
-			if (classOperator.createButton()) {
+			if (interpretOperator.createButton()) {
 				String objName = objNameText.getText();
 				objModel.addElement(objName);
 				objList.ensureIndexIsVisible(objModel.getSize() - 1);
@@ -329,7 +328,7 @@ public class MainWindow extends JFrame implements ActionListener {
 			}
 			// 配列生成ボタン
 		} else if (source == arrayBtn) {
-			if (classOperator.createAryButton()) {
+			if (interpretOperator.createAryButton()) {
 				String aryName = arrayNameField.getText();
 				objModel.addElement(aryName);
 				objList.ensureIndexIsVisible(objModel.getSize() - 1);
@@ -337,7 +336,7 @@ public class MainWindow extends JFrame implements ActionListener {
 			}
 			//配列取得ボタン
 		} else if (source == getArrayBtn) {
-			classOperator.arrayButton();
+			interpretOperator.arrayButton();
 			//オブジェクト設定
 		} else if (source == objSetBtn) { // オブジェクトセットボタン
 			int selectedRow = arrayTable.getSelectedRow();
@@ -345,7 +344,7 @@ public class MainWindow extends JFrame implements ActionListener {
 				System.out.println("配列を選択してください");
 				return;
 			} else {
-				classOperator.setArrayButton();
+				interpretOperator.setArrayButton();
 			}
 		}
 	}
@@ -387,13 +386,13 @@ public class MainWindow extends JFrame implements ActionListener {
 		conList.ensureIndexIsVisible(conModel.getSize() - 1);
 	}
 
-	public void printMethodList (List<Method> lists) {
-		methodListNum = lists;
-		for (int i = 0; i < lists.size(); i++) {
-			conModel.addElement(lists.get(i).toString());
-			conList.ensureIndexIsVisible(conModel.getSize() - 1);
-		}
-	}
+//	public void printMethodList (List<Method> lists) {
+//		methodListNum = lists;
+//		for (int i = 0; i < lists.size(); i++) {
+//			conModel.addElement(lists.get(i).toString());
+//			conList.ensureIndexIsVisible(conModel.getSize() - 1);
+//		}
+//	}
 
 	public void printMethodList (Method[] lists) {
 		for (int i = 0; i < lists.length; i++) {

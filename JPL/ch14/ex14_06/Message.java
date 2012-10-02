@@ -19,7 +19,7 @@ public class Message implements Runnable{
 		System.out.println(interval + " sec");
 	}
 
-	@Override
+
 	public void run() {
 		try {
 			for (;;) {

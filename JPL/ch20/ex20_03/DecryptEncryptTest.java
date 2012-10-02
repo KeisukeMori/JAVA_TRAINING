@@ -11,9 +11,6 @@ public class DecryptEncryptTest {
 
 	private static String TEST_STRING = "this is test";
 	
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) throws IOException {
 		ByteArrayOutputStream output = null;
 		EncryptOutputStream outputStream = null;

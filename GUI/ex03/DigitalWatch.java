@@ -6,9 +6,9 @@ import java.util.Calendar;
 
 public class DigitalWatch extends Window implements Runnable, MouseMotionListener {
 	private static final long serialVersionUID = 1L;
-	private int hour;           //‚ğ“ü‚ê‚é•Ï”‚ğéŒ¾
-	private int minute;           //•ª‚ğ“ü‚ê‚é•Ï”‚ğéŒ¾
-	private int second;           //•b‚ğ“ü‚ê‚é•Ï”‚ğéŒ¾
+	private int hour;           //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïï¿½ï¿½ï¿½éŒ¾
+	private int minute;           //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïï¿½ï¿½ï¿½éŒ¾
+	private int second;           //ï¿½bï¿½ï¿½ï¿½ï¿½ï¿½Ïï¿½ï¿½ï¿½éŒ¾
 
 	private Thread th;
 	private Menu menuFont, menuFontSize, menuTextColor, menuBackgroundColor;
@@ -21,21 +21,21 @@ public class DigitalWatch extends Window implements Runnable, MouseMotionListene
 	private Point eventLocationOnScreen;
 
 	private String timeString;
-	//ƒƒjƒ…[ƒtƒHƒ“ƒgƒAƒCƒeƒ€
+	//ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½Aï¿½Cï¿½eï¿½ï¿½
 	PopupMenu pop = new PopupMenu("Property");
 
 	// 
 	public DigitalWatch() {
-		//ƒ^ƒCƒgƒ‹
+		//ï¿½^ï¿½Cï¿½gï¿½ï¿½
 		super(new Frame());
 		setSize(300, 300);
-		//ƒƒjƒ…[€–Ú‚Ì¶¬
-		menuFont = new Menu("ƒtƒHƒ“ƒg");
-		menuFontSize = new Menu("ƒtƒHƒ“ƒgƒTƒCƒY");
-		menuTextColor = new Menu("•¶šF");
-		menuBackgroundColor = new Menu("”wŒiF");
-		exit = new MenuItem("•Â‚¶‚é");
-		//ƒƒjƒ…[‚Ö‚Ì’Ç‰Á
+		//ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Ú‚Ìï¿½ï¿½ï¿½
+		menuFont = new Menu("ï¿½tï¿½Hï¿½ï¿½ï¿½g");
+		menuFontSize = new Menu("ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½Tï¿½Cï¿½Y");
+		menuTextColor = new Menu("ï¿½ï¿½ï¿½ï¿½ï¿½F");
+		menuBackgroundColor = new Menu("ï¿½wï¿½iï¿½F");
+		exit = new MenuItem("ï¿½Â‚ï¿½ï¿½ï¿½");
+		//ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½Ö‚Ì’Ç‰ï¿½
 		pop.add(menuFont);
 		pop.add(menuFontSize);
 		pop.add(menuTextColor);
@@ -79,9 +79,9 @@ public class DigitalWatch extends Window implements Runnable, MouseMotionListene
 
 	public String getTime() {
 		Calendar calendar = Calendar.getInstance();
-		hour = calendar.get(Calendar.HOUR_OF_DAY); //‚ğ‘ã“ü
-		minute = calendar.get(Calendar.MINUTE);      //•ª‚ğ‘ã“ü
-		second= calendar.get(Calendar.SECOND);       //•b‚ğ‘ã“ü
+		hour = calendar.get(Calendar.HOUR_OF_DAY); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		minute = calendar.get(Calendar.MINUTE);      //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		second= calendar.get(Calendar.SECOND);       //ï¿½bï¿½ï¿½ï¿½ï¿½
 		return padZero(hour) + ":" + padZero(minute) + ":" + padZero(second);
 	}
 
@@ -123,19 +123,19 @@ public class DigitalWatch extends Window implements Runnable, MouseMotionListene
 		g.drawImage(imageBuffer, insets.left, insets.top, this);
 	}
 
-	@Override
+
 	public void update(Graphics g) {
 		paint(g);
 	}
 
-	@Override
+
 	public void run() {
 		while(true) {
-			// Ä•`‰æ
+			// ï¿½Ä•`ï¿½ï¿½
 			repaint();
 
 			try {
-				Thread.sleep(500); // ƒXƒŠ[ƒv1•b
+				Thread.sleep(500); // ï¿½Xï¿½ï¿½ï¿½[ï¿½v1ï¿½b
 			} catch(InterruptedException e) {}
 		}
 	}
@@ -162,7 +162,7 @@ public class DigitalWatch extends Window implements Runnable, MouseMotionListene
 
 		setLocation(newLocation);
 	}
-	@Override
+
 	public void mouseDragged(MouseEvent e) {
 		if (e.getModifiers() == MouseEvent.BUTTON1_MASK) {
 			System.out.println("mouse pressed");
@@ -180,27 +180,27 @@ public class DigitalWatch extends Window implements Runnable, MouseMotionListene
 			setWindowLocation(newLocation);
 		}
 	}
-	@Override
+
 	public void mouseMoved(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 	}
 
 	public void setStyle() {
-		//ƒXƒ^ƒCƒ‹
-		menuFontPlain = new MenuItem("•W€");
-		menuFontBold = new MenuItem("‘¾š");
-		menuFontItalic = new MenuItem("Î‘Ì");
+		//ï¿½Xï¿½^ï¿½Cï¿½ï¿½
+		menuFontPlain = new MenuItem("ï¿½Wï¿½ï¿½");
+		menuFontBold = new MenuItem("ï¿½ï¿½ï¿½ï¿½");
+		menuFontItalic = new MenuItem("ï¿½Î‘ï¿½");
 		menuFont.add(menuFontPlain);
 		menuFont.add(menuFontBold);
 		menuFont.add(menuFontItalic);
 		menuFont.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fontName = e.getActionCommand();
-				if (fontName.equals("•W€")) {
+				if (fontName.equals("ï¿½Wï¿½ï¿½")) {
 					fontStyle = Font.PLAIN;
-				} else if (fontName.equals("‘¾š")) {
+				} else if (fontName.equals("ï¿½ï¿½ï¿½ï¿½")) {
 					fontStyle = Font.BOLD;
-				} else if (fontName.equals("Î‘Ì")) {
+				} else if (fontName.equals("ï¿½Î‘ï¿½")) {
 					fontStyle = Font.ITALIC;
 				}
 				repaint();
@@ -209,7 +209,7 @@ public class DigitalWatch extends Window implements Runnable, MouseMotionListene
 	}
 
 	public void setFontSize() {
-		//ƒtƒHƒ“ƒgƒTƒCƒY
+		//ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½Tï¿½Cï¿½Y
 		menuFontSize.add(new MenuItem("10"));
 		menuFontSize.add(new MenuItem("20"));
 		menuFontSize.add(new MenuItem("40"));
@@ -217,7 +217,7 @@ public class DigitalWatch extends Window implements Runnable, MouseMotionListene
 		menuFontSize.add(new MenuItem("120"));
 		menuFontSize.add(new MenuItem("240"));	
 		menuFontSize.addActionListener(new ActionListener() {
-			// ƒtƒHƒ“ƒgƒTƒCƒY‚Ìİ’è
+			// ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½Tï¿½Cï¿½Yï¿½Ìİ’ï¿½
 			public void actionPerformed(ActionEvent e) {
 				fontSize = Integer.valueOf(e.getActionCommand());
 				repaint();
@@ -226,7 +226,7 @@ public class DigitalWatch extends Window implements Runnable, MouseMotionListene
 	}
 
 	public void setFontColor() {
-		//•¶šF
+		//ï¿½ï¿½ï¿½ï¿½ï¿½F
 		menuTextColor.add(new MenuItem("Black"));
 		menuTextColor.add(new MenuItem("Blue"));
 		menuTextColor.add(new MenuItem("Cyan"));
@@ -275,7 +275,7 @@ public class DigitalWatch extends Window implements Runnable, MouseMotionListene
 	}
 
 	public void setBackGroundColor() {
-		//”wŒiF
+		//ï¿½wï¿½iï¿½F
 		menuBackgroundColor.add(new MenuItem("Black"));
 		menuBackgroundColor.add(new MenuItem("Blue"));
 		menuBackgroundColor.add(new MenuItem("Cyan"));
@@ -334,7 +334,7 @@ public class DigitalWatch extends Window implements Runnable, MouseMotionListene
 
 
 	public class CurrentWindowAdapter extends WindowAdapter {
-		public void windowClosing(WindowEvent e) {   //~‚ğ‰Ÿ‚³‚ê‚½‚Æ‚«‚Ìˆ—
+		public void windowClosing(WindowEvent e) {   //ï¿½~ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½Æ‚ï¿½ï¿½Ìï¿½ï¿½ï¿½
 			System.exit(0);
 		}
 	}

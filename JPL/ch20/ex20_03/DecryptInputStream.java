@@ -12,7 +12,6 @@ public class DecryptInputStream extends FilterInputStream {
 		super(in);
 	}
 
-	@Override
 	public int read() throws IOException {
 		int b = super.read();
 		if (b != -1) {

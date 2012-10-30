@@ -84,15 +84,17 @@ class PropertyData {
 	Color getColorObj(String colorName) {
 		Color value = null;
 
-		for (String colorStr : colorSet) {
-			if (colorStr.equals(colorName)) {
+		for (String colorSting : colorSet) {
+			if (colorSting.equals(colorName)) {
+				// colorクラスのオブジェクトを生成
 				Class<Color> colorClass = Color.class;
 				try {
+					// object取得
 					Field field = colorClass.getField(colorName);
 					value = (Color)field.get(Color.WHITE);
-				} catch (NoSuchFieldException e) {
-					e.printStackTrace();
 				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				} catch (NoSuchFieldException e) {
 					e.printStackTrace();
 				}
 			}

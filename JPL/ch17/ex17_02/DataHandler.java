@@ -26,6 +26,11 @@ public class DataHandler {
 		return data;
 	}
 
+	/**
+	 * ファイルの読み込みを行います
+	 * @param file
+	 * @return
+	 */
 	private byte[] readByteFromFile(File file) {
 		FileInputStream stream;
 		ArrayList<Byte> byteArr = new ArrayList<Byte>();

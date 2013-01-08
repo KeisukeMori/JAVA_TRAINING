@@ -10,7 +10,7 @@ import org.junit.Test;
 
 public class ResourceManagerTest {
 
-	int SIZE = 1000000;
+	int SIZE = 100;
 	ResourceManager manager;
 	String key;
 	@BeforeClass

@@ -2,16 +2,22 @@ package ex04.swing;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
+
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+
+
 
 
 class DigitalWatch extends JFrame {
@@ -21,6 +27,7 @@ class DigitalWatch extends JFrame {
 	private DateFormat sdf;
 	private MainPanel mainPanel;
 	private PropertyData propertyData;
+	  private PropertyData propertySnapshot = null;
 	private PropertyDialog propertyDialog;
 	private ClockMenuBar menuBar;
 	private JMenu menu;
@@ -30,6 +37,12 @@ class DigitalWatch extends JFrame {
 
 	private boolean isFontChanged;
 
+	 private Preferences prefs;
+
+	  static final String PREFS_PROPERTY_KEY = "Propery.DigitalClock.Test";
+	  static final String PREFS_LOCATION_KEY = "Location.DigitalClock.Test";
+
+	
 	DigitalWatch() {
 		super("DigitalWatch");
 		setSize(300, 230);
@@ -38,8 +51,10 @@ class DigitalWatch extends JFrame {
 
 		isFontChanged = true;
 		sdf = new SimpleDateFormat("HH:mm:ss");
-
-		propertyData = new PropertyData(DEFAULT_CLOCK_FONT, Color.BLACK, Color.WHITE);
+	    prefs = Preferences.userNodeForPackage(getClass());
+//		propertyData = new PropertyData(DEFAULT_CLOCK_FONT, Color.BLACK, Color.WHITE);
+		propertyData = newProperty();
+	    setLocation();
 		propertyDialog = new PropertyDialog(this, propertyData);
 		menuBar = new ClockMenuBar(propertyDialog);
 		setJMenuBar(menuBar);
@@ -51,8 +66,78 @@ class DigitalWatch extends JFrame {
 		timer.schedule(new PaintTimer(), 0, 500);
 
 		setVisible(true);
+		
+	    /* ウィンドウが閉じられた時 */
+	    addWindowListener(new WindowAdapter() {
+	      public void windowClosing(WindowEvent e) {
+	        exitClock();
+	      }
+	    });
 	}
+	  /** 時計の状態をスナップショットを作成した時点まで戻す */
+	  void rollback() {
+	    propertyData = propertySnapshot;
+	    propertyDialog.setProperty(propertySnapshot);
+	    isFontChanged = true; // フォントの変更がもとに戻った際にウィンドウのサイズを調整必要がある
+	  }
 
+	  /** 時計の設定をプリファレンスに書き出す */
+	  void saveProperty() {
+	    try {
+	      Preference.putObject(prefs, PREFS_PROPERTY_KEY, propertyData);
+	      Preference.putObject(prefs, PREFS_LOCATION_KEY, getLocation());
+	    } catch (IOException e) {
+	      e.printStackTrace();
+	    } catch (BackingStoreException e) {
+	      e.printStackTrace();
+	    } catch (ClassNotFoundException e) {
+	      e.printStackTrace();
+	    }
+	  }
+
+	  
+	  void snapshot() {
+	    propertySnapshot = new PropertyData(propertyData);
+	  }
+
+	  private PropertyData newProperty() {
+		  PropertyData property = new PropertyData(DEFAULT_CLOCK_FONT, Color.BLACK, Color.WHITE);
+	    try {
+	      Object obj = Preference.getObject(prefs, PREFS_PROPERTY_KEY);
+	      if (obj != null) {
+	        property = (PropertyData)obj;
+	      }
+	    } catch (IOException e) {
+	      e.printStackTrace();
+	    } catch (BackingStoreException e) {
+	      e.printStackTrace();
+	    } catch (ClassNotFoundException e) {
+	      e.printStackTrace();
+	    }
+	    return property;
+	  }
+
+	  private void setLocation() {
+	    setLocationRelativeTo(null);
+	    try {
+	      Object obj = Preference.getObject(prefs, PREFS_LOCATION_KEY);
+	      if (obj != null) {
+	        setLocation((Point)obj);
+	      }
+	    } catch (IOException e) {
+	      e.printStackTrace();
+	    } catch (BackingStoreException e) {
+	      e.printStackTrace();
+	    } catch (ClassNotFoundException e) {
+	      e.printStackTrace();
+	    }
+	  }
+
+	  /** 現在の状態を保存して時計を終了する */
+	  void exitClock() {
+	    saveProperty();
+	    System.exit(0);
+	  }
 	void changeFont() {
 		isFontChanged = true;
 	}
@@ -83,7 +168,7 @@ class DigitalWatch extends JFrame {
 			if (source == propertyItem) {
 				propertyDialog.setVisible(true);
 			} else if (source == exitItem) {
-				System.exit(0);
+		        exitClock();
 			}
 		}
 	}

@@ -1,13 +1,17 @@
 package ex04.swing;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.lang.reflect.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-class PropertyData {
+
+class PropertyData implements Serializable{
+
+	private static final long serialVersionUID = 4628168452815837922L;
 	public static final String[] fontSet;
 	public static final String[] colorSet;
 	public static final String[] fontSizes =
@@ -22,7 +26,12 @@ class PropertyData {
 		this.fontColor = fontColor;
 		this.backGroundColor = backGroundColor;
 	}
-	
+	PropertyData(PropertyData other) {
+		    /* java.awt.Font, Color ともに immutable */
+		    this.font            = other.font;
+		    this.fontColor       = other.fontColor;
+		    this.backGroundColor = other.backGroundColor;
+		  }
 	static {
 		fontSet = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
 		//リフレクション

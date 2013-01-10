@@ -6,6 +6,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
 
+
 class PropertyDialog extends JDialog {
 
 	private static final long serialVersionUID = -7013056218854402641L;
@@ -30,9 +31,14 @@ class PropertyDialog extends JDialog {
 	private DefaultTableModel backGroundModel;
 	private JTable backGroundTable;
 	private JScrollPane backGroundScroll;
+	
+	private JPanel buttonPanel;
 	// ok
 	private JButton okButton;
 
+	// cancel
+	  private JButton cancelButton;
+	
 	private GridBagLayout layout;
 	private GridBagConstraints constraints;
 	private static final Font commonFont = new Font("Arial", Font.PLAIN, 20);
@@ -89,7 +95,11 @@ class PropertyDialog extends JDialog {
 		backGroundScroll = new JScrollPane(backGroundTable);
 		backGroundScroll.setPreferredSize(new Dimension(185, 100));
 
-		okButton = new JButton("OK");
+	    buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+	    okButton     = new JButton("OK");
+	    cancelButton = new JButton("Cancel");
+	    buttonPanel.add(okButton);
+	    buttonPanel.add(cancelButton);
 
 		layout = new GridBagLayout();
 		setLayout(layout);
@@ -101,6 +111,7 @@ class PropertyDialog extends JDialog {
 		fontComboBox.addActionListener(listener);
 		fontSizeComboBox.addActionListener(listener);
 		okButton.addActionListener(listener);
+		cancelButton.addActionListener(listener);
 	}
 
 	private void addComponent(Component comp, int x, int y) {
@@ -111,17 +122,35 @@ class PropertyDialog extends JDialog {
 	}
 
 	private void addParts() {
-		constraints.anchor = GridBagConstraints.NORTHWEST;
+	    constraints.gridwidth = GridBagConstraints.RELATIVE;
+	    constraints.anchor = GridBagConstraints.EAST;
 		addComponent(fontLabel, 0, 0);
-		addComponent(fontComboBox, 1, 0);
 		addComponent(fontSizeLabel, 0, 1);
-		addComponent(fontSizeComboBox, 1, 1);
 		addComponent(colorLabel, 0, 2);
-		addComponent(colorScroll, 1, 2);
 		addComponent(backGroundLabel, 0, 3);
+		
+	    constraints.gridwidth = GridBagConstraints.REMAINDER;
+	    constraints.anchor = GridBagConstraints.WEST;
+		addComponent(fontComboBox, 1, 0);
+		addComponent(fontSizeComboBox, 1, 1);
+		addComponent(colorScroll, 1, 2);
 		addComponent(backGroundScroll, 1, 3);
-		addComponent(okButton, 1, 4);
+	    constraints.anchor = GridBagConstraints.EAST;
+	    addComponent(buttonPanel, 1, 4);
+		
 	}
+	  @Override
+	  public void setVisible(boolean b) {
+	    /* ダイアログが表示された際には
+	     * property 情報のスナップショットを取る */
+	    if (b)
+	    	digitalWatch.snapshot();
+	    super.setVisible(b);
+	  }
+	  
+	  void setProperty(PropertyData property) {
+		    this.propertyData = property;
+		  }
 	
 	// colorラベルおよび背景色を設定
 	public class ColorTableCellRenderer extends DefaultTableCellRenderer {
@@ -162,6 +191,9 @@ class PropertyDialog extends JDialog {
 			Object source = e.getSource();
 			if (source == okButton) {
 				PropertyDialog.this.setVisible(false);
+		      } else if (source == cancelButton) {
+		    	  digitalWatch.rollback();
+		    	  PropertyDialog.this.setVisible(false);
 			} else if (source == fontComboBox) {
 				String fontName = (String)fontComboBox.getSelectedItem();
 				propertyData.setFontName(fontName);
